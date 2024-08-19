@@ -18,9 +18,6 @@ export default async ({ args }) => {
     const releases = await db.release.findMany({
       where: {
         status: 'Accepted',
-        artist: {
-          name: 'New Order',
-        },
       },
       orderBy: {
         discogsId: 'asc',

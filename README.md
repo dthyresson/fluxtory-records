@@ -1,5 +1,8 @@
 # README
 
+Tribute to Factory Records. Fetches realize and cover art from Discogs.
+
+Goal is to train Flux with artwork.
 
 ## Discogs API
 

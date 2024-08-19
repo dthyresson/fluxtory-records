@@ -17,7 +17,7 @@ export const schema = gql`
     label: Label
     artistId: Int
     artist: Artist
-    Image: [Image]!
+    images: [Image]!
     genre: Genre
     genreId: Int
     style: Style

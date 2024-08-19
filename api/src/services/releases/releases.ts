@@ -14,7 +14,7 @@ export const releases: ReleasesResolver = async () => {
     include: {
       label: true,
       artist: true,
-      Image: true,
+      images: true,
       genre: true,
       style: true,
     },
@@ -27,7 +27,7 @@ export const release: ReleaseResolver = async ({ id }) => {
     include: {
       label: true,
       artist: true,
-      Image: true,
+      images: true,
       genre: true,
       style: true,
     },
@@ -40,7 +40,7 @@ export const createRelease: CreateReleaseResolver = async ({ input }) => {
     include: {
       label: true,
       artist: true,
-      Image: true,
+      images: true,
       genre: true,
       style: true,
     },
@@ -54,7 +54,7 @@ export const updateRelease: UpdateReleaseResolver = async ({ id, input }) => {
     include: {
       label: true,
       artist: true,
-      Image: true,
+      images: true,
       genre: true,
       style: true,
     },

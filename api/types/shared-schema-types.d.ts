@@ -137,7 +137,6 @@ export interface Redwood {
 
 export interface Release {
   __typename?: 'Release'
-  Image: Array<Image>
   artist?: Artist | null
   artistId?: number | null
   catalogNumber?: string | null
@@ -147,6 +146,7 @@ export interface Release {
   genre?: Genre | null
   genreId?: number | null
   id: number
+  images: Array<Image>
   label?: Label | null
   labelId?: number | null
   notes?: string | null

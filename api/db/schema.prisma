@@ -50,7 +50,7 @@ model Release {
   label         Label?   @relation(fields: [labelId], references: [id])
   artistId      Int?
   artist        Artist?  @relation(fields: [artistId], references: [id])
-  Image         Image[]
+  images        Image[]
   genre         Genre?   @relation(fields: [genreId], references: [id])
   genreId       Int?
   style         Style?   @relation(fields: [styleId], references: [id])
