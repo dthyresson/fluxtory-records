@@ -14,11 +14,71 @@ generator client {
   binaryTargets = "native"
 }
 
-// Define your own datamodels here and run `yarn redwood prisma migrate dev`
-// to create migrations for them and apply to your dev DB.
-// TODO: Please remove the following example:
-model UserExample {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+model Label {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  discogsId Int?      @unique
+  name      String    @unique
+  releases  Release[]
+}
+
+model Artist {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  discogsId Int?
+  name      String?   @unique
+  release   Release[]
+}
+
+model Release {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  discogsId     Int      @unique
+  status        String?
+  format        String?
+  catalogNumber String?
+  thumbnail     String?
+  resourceUrl   String?
+  uri           String?
+  title         String
+  year          Int
+  notes         String?
+  labelId       Int?
+  label         Label?   @relation(fields: [labelId], references: [id])
+  artistId      Int?
+  artist        Artist?  @relation(fields: [artistId], references: [id])
+  Image         Image[]
+  genre         Genre?   @relation(fields: [genreId], references: [id])
+  genreId       Int?
+  style         Style?   @relation(fields: [styleId], references: [id])
+  styleId       Int?
+}
+
+model Image {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  type        String
+  uri         String   @unique
+  resourceUrl String
+  uri150      String
+  width       Int
+  height      Int
+  releaseId   Int
+  release     Release  @relation(fields: [releaseId], references: [id])
+}
+
+model Genre {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  releases Release[]
+}
+
+model Style {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  releases Release[]
 }

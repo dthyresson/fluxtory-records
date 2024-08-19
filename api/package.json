@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@lionralfs/discogs-client": "^4.1.1",
+    "@prisma/client": "5.18.0",
     "@redwoodjs/api": "7.7.4",
-    "@redwoodjs/graphql-server": "7.7.4"
+    "@redwoodjs/graphql-server": "7.7.4",
+    "prisma": "5.18.0"
   }
 }
