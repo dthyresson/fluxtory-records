@@ -33,7 +33,9 @@ const generateCaptions = async (artistName: string): Promise<void> => {
   }
 
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
-  const captionsFilename = `${sanitizeFilename(artistName)}_captions_${timestamp}.jsonl`
+  const captionsFilename = `${sanitizeFilename(
+    artistName
+  )}_captions_${timestamp}.jsonl`
   const captionsFilepath = path.join(CAPTIONS_DIR, captionsFilename)
 
   const captions = releases.map((release) => {
@@ -42,7 +44,13 @@ const generateCaptions = async (artistName: string): Promise<void> => {
         release.title
       }_${release.format || 'unknown format'}`
     )
-    const caption = `In the style of [trigger], a record cover for "${release.title}" by ${artistName}`
+    const cover = release.genre?.name
+      ? `${release.genre?.name} style cover`.trim()
+      : 'cover'
+    const album = release.style?.name
+      ? `${release.style?.name} album`.trim()
+      : 'album'
+    const caption = `In the style of Factory Records album artwork, a ${release.format} ${cover} for the ${album} "${release.title}" by ${artistName} from ${release.year}`
     return JSON.stringify({ file_name: `${filename}.jpg`, text: caption })
   })
 

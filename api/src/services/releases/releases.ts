@@ -78,6 +78,8 @@ export const getReleasesWithPrimaryImagesByArtist = async (
         where: { type: 'primary' },
         take: 1,
       },
+      style: true,
+      genre: true,
     },
     orderBy: { discogsId: 'asc' },
   })

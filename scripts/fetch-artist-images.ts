@@ -1,10 +1,10 @@
 import fs from 'fs'
 import https from 'https'
 import path from 'path'
-import zlib from 'zlib'
 
 import { db } from 'api/src/lib/db'
 import { getReleasesWithPrimaryImagesByArtist } from 'api/src/services/releases/releases'
+import archiver from 'archiver'
 
 // import type { Artist, Release, Image } from 'types/shared-return-types'
 
@@ -70,6 +70,7 @@ const fetchArtistImages = async (artistName: string): Promise<void> => {
   }
 
   const releases = await getReleasesWithPrimaryImagesByArtist(artist.id)
+
   console.log(
     `Found ${releases.length} releases for artist: ${artistName} (${artist.id})`
   )
@@ -79,7 +80,10 @@ const fetchArtistImages = async (artistName: string): Promise<void> => {
   }
 
   const imageDir = path.join(EXPORTS_DIR, sanitizeFilename(artistName))
-  fs.mkdirSync(imageDir, { recursive: true })
+
+  if (!fs.existsSync(imageDir)) {
+    fs.mkdirSync(imageDir, { recursive: true })
+  }
 
   for (const release of releases) {
     if (release.images.length > 0) {
@@ -101,6 +105,11 @@ const fetchArtistImages = async (artistName: string): Promise<void> => {
       const filepath = path.join(imageDir, `${filename}${fileExtension}`)
 
       try {
+        // don't download the same image twice
+        if (fs.existsSync(filepath)) {
+          console.log(`Image already exists: ${filepath}`)
+          continue
+        }
         await downloadImage(uri, filepath)
 
         // pause for a random amount of time  between .25 and 1.5 seconds
@@ -128,12 +137,16 @@ const fetchArtistImages = async (artistName: string): Promise<void> => {
   const zipFilepath = path.join(TRAINING_DIR, zipFilename)
 
   const output = fs.createWriteStream(zipFilepath)
-  const archive = zlib.createGzip()
+  const archive = archiver('zip', {
+    zlib: { level: 9 }, // Sets the compression level
+  })
 
   output.on('close', () => {
     console.log(`Created zip archive: ${zipFilepath}`)
-    // Clean up the temporary image directory
-    fs.rmSync(imageDir, { recursive: true, force: true })
+  })
+
+  archive.on('error', (err) => {
+    throw err
   })
 
   archive.pipe(output)
@@ -141,10 +154,10 @@ const fetchArtistImages = async (artistName: string): Promise<void> => {
   const files = fs.readdirSync(imageDir)
   for (const file of files) {
     const filePath = path.join(imageDir, file)
-    fs.createReadStream(filePath).pipe(archive)
+    archive.file(filePath, { name: file })
   }
 
-  archive.end()
+  await archive.finalize()
 }
 
 export default async ({ args }) => {
@@ -167,6 +180,10 @@ export default async ({ args }) => {
   }
 }
 
-// Ensure the export directories exist
-fs.mkdirSync(EXPORTS_DIR, { recursive: true })
-fs.mkdirSync(TRAINING_DIR, { recursive: true })
+// Ensure the export directories exist without modifying existing contents
+if (!fs.existsSync(EXPORTS_DIR)) {
+  fs.mkdirSync(EXPORTS_DIR, { recursive: true })
+}
+if (!fs.existsSync(TRAINING_DIR)) {
+  fs.mkdirSync(TRAINING_DIR, { recursive: true })
+}

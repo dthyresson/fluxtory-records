@@ -6989,7 +6989,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"archiver@npm:7.0.1":
+"archiver@npm:7.0.1, archiver@npm:^7.0.1":
   version: 7.0.1
   resolution: "archiver@npm:7.0.1"
   dependencies:
@@ -18223,6 +18223,7 @@ __metadata:
   dependencies:
     "@redwoodjs/core": "npm:7.7.4"
     "@redwoodjs/project-config": "npm:7.7.4"
+    archiver: "npm:^7.0.1"
   languageName: unknown
   linkType: soft
 
