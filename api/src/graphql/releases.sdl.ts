@@ -25,8 +25,8 @@ export const schema = gql`
   }
 
   type Query {
-    releases: [Release!]! @requireAuth
-    release(id: Int!): Release @requireAuth
+    releases: [Release!]! @blocked
+    release(id: Int!): Release @blocked
   }
 
   input CreateReleaseInput {
@@ -64,8 +64,8 @@ export const schema = gql`
   }
 
   type Mutation {
-    createRelease(input: CreateReleaseInput!): Release! @requireAuth
-    updateRelease(id: Int!, input: UpdateReleaseInput!): Release! @requireAuth
-    deleteRelease(id: Int!): Release! @requireAuth
+    createRelease(input: CreateReleaseInput!): Release! @blocked
+    updateRelease(id: Int!, input: UpdateReleaseInput!): Release! @blocked
+    deleteRelease(id: Int!): Release! @blocked
   }
 `

@@ -6,8 +6,8 @@ export const schema = gql`
   }
 
   type Query {
-    genres: [Genre!]! @requireAuth
-    genre(id: Int!): Genre @requireAuth
+    genres: [Genre!]! @blocked
+    genre(id: Int!): Genre @blocked
   }
 
   input CreateGenreInput {
@@ -19,8 +19,8 @@ export const schema = gql`
   }
 
   type Mutation {
-    createGenre(input: CreateGenreInput!): Genre! @requireAuth
-    updateGenre(id: Int!, input: UpdateGenreInput!): Genre! @requireAuth
-    deleteGenre(id: Int!): Genre! @requireAuth
+    createGenre(input: CreateGenreInput!): Genre! @blocked
+    updateGenre(id: Int!, input: UpdateGenreInput!): Genre! @blocked
+    deleteGenre(id: Int!): Genre! @blocked
   }
 `

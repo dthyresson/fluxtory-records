@@ -8,8 +8,8 @@ export const schema = gql`
   }
 
   type Query {
-    artists: [Artist!]! @requireAuth
-    artist(id: Int!): Artist @requireAuth
+    artists: [Artist!]! @blocked
+    artist(id: Int!): Artist @blocked
   }
 
   input CreateArtistInput {
@@ -21,8 +21,8 @@ export const schema = gql`
   }
 
   type Mutation {
-    createArtist(input: CreateArtistInput!): Artist! @requireAuth
-    updateArtist(id: Int!, input: UpdateArtistInput!): Artist! @requireAuth
-    deleteArtist(id: Int!): Artist! @requireAuth
+    createArtist(input: CreateArtistInput!): Artist! @blocked
+    updateArtist(id: Int!, input: UpdateArtistInput!): Artist! @blocked
+    deleteArtist(id: Int!): Artist! @blocked
   }
 `
