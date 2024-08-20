@@ -10,7 +10,7 @@ This `fluxtory-records` project aims to recreate that style with generative AI.
 
 * Fetches releases and cover art from Discogs.
 * Stores releases, labels, artists, and images in a local database.
-* Runs a script to generate training data for Flux.
+* Runs a script to generate training data for Flux: see: https://fal.ai/models/fal-ai/flux-lora-general-training
 
 ## Discogs API
 
