@@ -66,3 +66,19 @@ export const deleteRelease: DeleteReleaseResolver = async ({ id }) => {
     where: { id },
   })
 }
+
+export const getReleasesWithPrimaryImagesByArtist = async (
+  artistId: number
+) => {
+  return await db.release.findMany({
+    where: { artistId },
+    include: {
+      artist: true,
+      images: {
+        where: { type: 'primary' },
+        take: 1,
+      },
+    },
+    orderBy: { discogsId: 'asc' },
+  })
+}

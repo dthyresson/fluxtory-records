@@ -50,3 +50,15 @@ export const deleteImage: DeleteImageResolver = async ({ id }) => {
     where: { id },
   })
 }
+
+export const getPrimaryImageForRelease = async (releaseId: number) => {
+  return await db.image.findFirst({
+    where: {
+      releaseId: releaseId,
+      type: 'primary',
+    },
+    include: {
+      release: true,
+    },
+  })
+}
