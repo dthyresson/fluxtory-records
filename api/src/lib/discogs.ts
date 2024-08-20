@@ -34,7 +34,7 @@ export const getLabelByName = (name: string) => {
 }
 
 export const discogsClient = new DiscogsClient({
-  userAgent: 'fluxtory-records/0.1',
+  userAgent: process.env.DISCOGS_USER_AGENT,
   auth: {
     userToken: process.env.DISCOGS_USER_TOKEN,
   },
