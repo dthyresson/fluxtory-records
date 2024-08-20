@@ -9,8 +9,8 @@ export const schema = gql`
   }
 
   type Query {
-    labels: [Label!]! @requireAuth
-    label(id: Int!): Label @requireAuth
+    labels: [Label!]! @blocked
+    label(id: Int!): Label @blocked
   }
 
   input CreateLabelInput {
@@ -24,8 +24,8 @@ export const schema = gql`
   }
 
   type Mutation {
-    createLabel(input: CreateLabelInput!): Label! @requireAuth
-    updateLabel(id: Int!, input: UpdateLabelInput!): Label! @requireAuth
-    deleteLabel(id: Int!): Label! @requireAuth
+    createLabel(input: CreateLabelInput!): Label! @blocked
+    updateLabel(id: Int!, input: UpdateLabelInput!): Label! @blocked
+    deleteLabel(id: Int!): Label! @blocked
   }
 `

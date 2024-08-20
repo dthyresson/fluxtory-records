@@ -6,8 +6,8 @@ export const schema = gql`
   }
 
   type Query {
-    styles: [Style!]! @requireAuth
-    style(id: Int!): Style @requireAuth
+    styles: [Style!]! @blocked
+    style(id: Int!): Style @blocked
   }
 
   input CreateStyleInput {
@@ -19,8 +19,8 @@ export const schema = gql`
   }
 
   type Mutation {
-    createStyle(input: CreateStyleInput!): Style! @requireAuth
-    updateStyle(id: Int!, input: UpdateStyleInput!): Style! @requireAuth
-    deleteStyle(id: Int!): Style! @requireAuth
+    createStyle(input: CreateStyleInput!): Style! @blocked
+    updateStyle(id: Int!, input: UpdateStyleInput!): Style! @blocked
+    deleteStyle(id: Int!): Style! @blocked
   }
 `
