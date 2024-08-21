@@ -10,13 +10,34 @@ import { db } from 'src/lib/db'
 
 export const artists: ArtistsResolver = async () => {
   return await db.artist.findMany({
-    orderBy: { id: 'asc' },
+    include: {
+      releases: {
+        include: {
+          images: true,
+        },
+      },
+    },
+    orderBy: { name: 'asc' },
   })
 }
 
 export const artist: ArtistResolver = async ({ id }) => {
   return await db.artist.findUnique({
     where: { id },
+    include: {
+      releases: {
+        orderBy: {
+          title: 'asc',
+        },
+        include: {
+          images: {
+            orderBy: {
+              type: 'asc',
+            },
+          },
+        },
+      },
+    },
   })
 }
 

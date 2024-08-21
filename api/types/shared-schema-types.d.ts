@@ -3,7 +3,7 @@ export interface Artist {
   createdAt: DateTime
   id: number
   name: string
-  release: Array<Release>
+  releases: Array<Release>
   updatedAt: DateTime
 }
 

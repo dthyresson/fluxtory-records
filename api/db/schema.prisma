@@ -29,7 +29,7 @@ model Artist {
   updatedAt DateTime  @updatedAt
   discogsId Int?
   name      String?   @unique
-  release   Release[]
+  releases  Release[]
 }
 
 model Release {

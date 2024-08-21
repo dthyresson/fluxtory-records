@@ -26,7 +26,7 @@ export const schema = gql`
 
   type Query {
     releases: [Release!]! @blocked
-    release(id: Int!): Release @blocked
+    release(id: Int!): Release @skipAuth
   }
 
   input CreateReleaseInput {
