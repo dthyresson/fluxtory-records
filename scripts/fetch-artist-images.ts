@@ -7,6 +7,7 @@ import {
   downloadImage,
   createZipArchive,
   ensureDirectoryExists,
+  generateCaptions,
   sleep,
 } from 'api/src/lib/utils'
 import { artists } from 'api/src/services/artists/artists'
@@ -16,6 +17,7 @@ import { getReleasesWithPrimaryImagesByArtist } from 'api/src/services/releases/
 import { getPaths } from '@redwoodjs/project-config'
 
 const EXPORTS_DIR = path.join(getPaths().base, 'exports', 'images')
+const CAPTIONS_DIR = path.join(getPaths().base, 'exports', 'captions')
 const TRAINING_DIR = path.join(EXPORTS_DIR, 'training')
 
 const fetchArtistImages = async (artistName: string): Promise<void> => {
@@ -84,9 +86,20 @@ const fetchArtistImages = async (artistName: string): Promise<void> => {
     }
   }
 
+  // Generate captions for the artist
+  const captionsFilePath = await generateCaptions(artistName)
+
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
   const zipFilename = `${sanitizeFilename(artistName)}_${timestamp}.zip`
   const zipFilepath = path.join(TRAINING_DIR, zipFilename)
+
+  // Create zip archive with both images and captions
+
+  // copy the captions file to the imageDir
+  if (captionsFilePath) {
+    const captionsFile = path.basename(captionsFilePath)
+    fs.copyFileSync(captionsFilePath, path.join(imageDir, captionsFile))
+  }
 
   await createZipArchive(imageDir, zipFilepath)
   console.log(`Created zip archive: ${zipFilepath}`)
@@ -130,5 +143,6 @@ export default async ({ args }) => {
 // Ensure the export directories exist
 ensureDirectoryExists(EXPORTS_DIR)
 ensureDirectoryExists(TRAINING_DIR)
+ensureDirectoryExists(CAPTIONS_DIR)
 
 console.log('Export directories created or verified.')
