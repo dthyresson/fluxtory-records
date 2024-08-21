@@ -33,10 +33,10 @@ model Artist {
 }
 
 model Release {
-  id            Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  discogsId     Int      @unique
+  id            Int          @id @default(autoincrement())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  discogsId     Int          @unique
   status        String?
   format        String?
   catalogNumber String?
@@ -47,14 +47,16 @@ model Release {
   year          Int
   notes         String?
   labelId       Int?
-  label         Label?   @relation(fields: [labelId], references: [id])
+  label         Label?       @relation(fields: [labelId], references: [id])
   artistId      Int?
-  artist        Artist?  @relation(fields: [artistId], references: [id])
+  artist        Artist?      @relation(fields: [artistId], references: [id])
   images        Image[]
-  genre         Genre?   @relation(fields: [genreId], references: [id])
+  genre         Genre?       @relation(fields: [genreId], references: [id])
   genreId       Int?
-  style         Style?   @relation(fields: [styleId], references: [id])
+  style         Style?       @relation(fields: [styleId], references: [id])
   styleId       Int?
+  trainingSet   TrainingSet? @relation(fields: [trainingSetId], references: [id])
+  trainingSetId Int?
 }
 
 model Image {
@@ -81,4 +83,13 @@ model Style {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   releases Release[]
+}
+
+model TrainingSet {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  version     Int       @unique @default(1)
+  description String?
+  releases    Release[]
 }

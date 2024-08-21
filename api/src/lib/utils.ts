@@ -8,7 +8,7 @@ import archiver from 'archiver'
 import { getPaths } from '@redwoodjs/project-config'
 
 import { db } from 'src/lib/db'
-import { getReleasesWithPrimaryImagesByArtist } from 'src/services/releases/releases'
+import { getReleasesWithPrimaryImagesByArtist } from 'src/services/releases/getReleasesWithPrimaryImagesByArtist'
 
 const EXPORTS_DIR = path.join(getPaths().base, 'exports')
 const IMAGES_DIR = path.join(EXPORTS_DIR, 'images')

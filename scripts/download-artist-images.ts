@@ -12,7 +12,7 @@ import {
   sleep,
 } from 'api/src/lib/utils'
 import { artists } from 'api/src/services/artists/artists'
-import { getReleasesWithPrimaryImagesByArtist } from 'api/src/services/releases/releases'
+import { getReleasesWithPrimaryImagesByArtist } from 'api/src/services/releases/getReleasesWithPrimaryImagesByArtist'
 // import type { Artist, Release, Image } from 'types/shared-return-types'
 
 import { getPaths } from '@redwoodjs/project-config'

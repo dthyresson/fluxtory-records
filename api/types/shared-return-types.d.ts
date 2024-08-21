@@ -5,6 +5,7 @@ import type {
   Label as PLabel,
   Release as PRelease,
   Style as PStyle,
+  TrainingSet as PTrainingSet,
 } from '@prisma/client'
 
 // You may very reasonably ask yourself, 'what is this file?' and why do I need it.
@@ -66,6 +67,12 @@ export interface CreateStyleInput {
   name: string
 }
 
+export interface CreateTrainingSetInput {
+  __typename?: 'CreateTrainingSetInput'
+  description?: string | null
+  version: number
+}
+
 export interface Mutation {
   __typename?: 'Mutation'
   createArtist: PArtist
@@ -74,18 +81,21 @@ export interface Mutation {
   createLabel: PLabel
   createRelease: PRelease
   createStyle: PStyle
+  createTrainingSet: PTrainingSet
   deleteArtist: PArtist
   deleteGenre: PGenre
   deleteImage: PImage
   deleteLabel: PLabel
   deleteRelease: PRelease
   deleteStyle: PStyle
+  deleteTrainingSet: PTrainingSet
   updateArtist: PArtist
   updateGenre: PGenre
   updateImage: PImage
   updateLabel: PLabel
   updateRelease: PRelease
   updateStyle: PStyle
+  updateTrainingSet: PTrainingSet
 }
 
 export interface Query {
@@ -101,9 +111,10 @@ export interface Query {
   redwood?: Redwood | null
   release?: PRelease | null
   releases: PRelease[]
-  releasesByLabel: PRelease[]
   style?: PStyle | null
   styles: PStyle[]
+  trainingSet?: PTrainingSet | null
+  trainingSets: PTrainingSet[]
 }
 
 export interface Redwood {
@@ -163,6 +174,12 @@ export interface UpdateStyleInput {
   name?: string | null
 }
 
+export interface UpdateTrainingSetInput {
+  __typename?: 'UpdateTrainingSetInput'
+  description?: string | null
+  version?: number | null
+}
+
 type JSON = any
 export type Artist = PArtist
 export type Genre = PGenre
@@ -170,3 +187,4 @@ export type Image = PImage
 export type Label = PLabel
 export type Release = PRelease
 export type Style = PStyle
+export type TrainingSet = PTrainingSet

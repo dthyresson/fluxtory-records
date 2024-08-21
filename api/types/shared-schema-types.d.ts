@@ -57,6 +57,12 @@ export interface CreateStyleInput {
   name: string
 }
 
+export interface CreateTrainingSetInput {
+  __typename?: 'CreateTrainingSetInput'
+  description?: string | null
+  version: number
+}
+
 export interface Genre {
   __typename?: 'Genre'
   id: number
@@ -97,18 +103,21 @@ export interface Mutation {
   createLabel: Label
   createRelease: Release
   createStyle: Style
+  createTrainingSet: TrainingSet
   deleteArtist: Artist
   deleteGenre: Genre
   deleteImage: Image
   deleteLabel: Label
   deleteRelease: Release
   deleteStyle: Style
+  deleteTrainingSet: TrainingSet
   updateArtist: Artist
   updateGenre: Genre
   updateImage: Image
   updateLabel: Label
   updateRelease: Release
   updateStyle: Style
+  updateTrainingSet: TrainingSet
 }
 
 export interface Query {
@@ -126,6 +135,8 @@ export interface Query {
   releases: Release[]
   style?: Style | null
   styles: Style[]
+  trainingSet?: TrainingSet | null
+  trainingSets: TrainingSet[]
 }
 
 export interface Redwood {
@@ -166,6 +177,16 @@ export interface Style {
   id: number
   name: string
   releases: Array<Release>
+}
+
+export interface TrainingSet {
+  __typename?: 'TrainingSet'
+  createdAt: DateTime
+  description?: string | null
+  id: number
+  releases: Array<Release>
+  updatedAt: DateTime
+  version: number
 }
 
 export interface UpdateArtistInput {
@@ -216,6 +237,12 @@ export interface UpdateReleaseInput {
 export interface UpdateStyleInput {
   __typename?: 'UpdateStyleInput'
   name?: string | null
+}
+
+export interface UpdateTrainingSetInput {
+  __typename?: 'UpdateTrainingSetInput'
+  description?: string | null
+  version?: number | null
 }
 
 type DateTime = any
