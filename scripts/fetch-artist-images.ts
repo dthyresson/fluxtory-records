@@ -87,18 +87,21 @@ const fetchArtistImages = async (artistName: string): Promise<void> => {
   }
 
   // Generate captions for the artist
-  await generateCaptions(artistName)
+  const captionsFilePath = await generateCaptions(artistName)
 
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
   const zipFilename = `${sanitizeFilename(artistName)}_${timestamp}.zip`
   const zipFilepath = path.join(TRAINING_DIR, zipFilename)
 
   // Create zip archive with both images and captions
-  const captionsFile = path.join(CAPTIONS_DIR, `${sanitizeFilename(artistName)}_captions_${timestamp}.jsonl`)
-  await createZipArchive([
-    { source: imageDir, type: 'directory' },
-    { source: captionsFile, type: 'file' }
-  ], zipFilepath)
+
+  // copy the captions file to the imageDir
+  if (captionsFilePath) {
+    const captionsFile = path.basename(captionsFilePath)
+    fs.copyFileSync(captionsFilePath, path.join(imageDir, captionsFile))
+  }
+
+  await createZipArchive(imageDir, zipFilepath)
   console.log(`Created zip archive: ${zipFilepath}`)
 }
 

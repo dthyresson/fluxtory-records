@@ -1,11 +1,13 @@
 import fs from 'fs'
 import https from 'https'
 import path from 'path'
-import { getPaths } from '@redwoodjs/project-config'
-import { db } from 'src/lib/db'
-import { getReleasesWithPrimaryImagesByArtist } from 'src/services/releases/releases'
 
 import archiver from 'archiver'
+
+import { getPaths } from '@redwoodjs/project-config'
+
+import { db } from 'src/lib/db'
+import { getReleasesWithPrimaryImagesByArtist } from 'src/services/releases/releases'
 
 const EXPORTS_DIR = path.join(getPaths().base, 'exports')
 const IMAGES_DIR = path.join(EXPORTS_DIR, 'images')
@@ -101,7 +103,9 @@ export const sleep = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export const generateCaptions = async (artistName: string): Promise<void> => {
+export const generateCaptions = async (
+  artistName: string
+): Promise<string | void> => {
   const artist = await db.artist.findUnique({ where: { name: artistName } })
   if (!artist) {
     console.error(`Artist "${artistName}" not found`)
@@ -142,13 +146,31 @@ export const generateCaptions = async (artistName: string): Promise<void> => {
         return null
       }
 
-      const cover = release.genre?.name ? `${release.genre?.name} style cover`.trim() : 'cover'
-      const album = release.style?.name ? `${release.style?.name} album`.trim() : 'album'
+      const cover = release.genre?.name
+        ? `${release.genre?.name} style cover`.trim()
+        : 'cover'
+      const album = release.style?.name
+        ? `${release.style?.name} album`.trim()
+        : 'album'
       const caption = `In the style of Factory Records album artwork, a ${release.format} ${cover} for the ${album} "${release.title}" by ${artistName} from ${release.year}`
       return JSON.stringify({ file_name: imageFilename, text: caption })
     })
     .filter(Boolean)
 
+  // if the captions file already exists, don't overwrite it
+  if (fs.existsSync(captionsFilepath)) {
+    console.log(`Captions file already exists: ${captionsFilepath}`)
+    return
+  }
+
+  if (captions.length === 0) {
+    console.error(`No captions found for artist: ${artistName}`)
+    return
+  }
+
   fs.writeFileSync(captionsFilepath, captions.join('\n'))
+
+  return captionsFilepath
+
   console.log(`Generated captions file: ${captionsFilepath}`)
 }
