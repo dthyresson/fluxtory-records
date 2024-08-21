@@ -47,3 +47,17 @@ curl https://api.discogs.com/labels/857 --user-agent "fluxtory-records/0.1"
 ```bash
 curl https://api.discogs.com/labels/857/releases --user-agent "fluxtory-records/0.1"
 ```
+## Training
+
+### v1
+
+#### Config
+https://storage.googleapis.com/fal-flux-lora/f5acaf22500845d9ae019d4398d6cb1b_config.json
+
+```json
+{"images_data_url": "https://storage.googleapis.com/isolate-dev-hot-rooster_toolkit_bucket/github_1051633/f5f6c777a9934b7ab7140d1f06d3010b_fluxtory_set_v1.zip?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=gke-service-account%40isolate-dev-hot-rooster.iam.gserviceaccount.com%2F20240821%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20240821T162724Z&X-Goog-Expires=604800&X-Goog-SignedHeaders=host&X-Goog-Signature=549486f98d90c24bf6f72776823f67845b3adcb1027a6201f3ff3f99de8b920df8684bd0e83a6af56ef9738bf4cc7fe10877e1e7bf1953b982008f78c785d6cfaf0a07cd9b5bbdb591c73d7e3259c9000d0b8965a7fc04ff5cd75ad5857498dd8f542ad9d4f63bff017b4cb0a72cea4de7ae017951a646c43a3c1b95e529ed81520122fbc7da59c6dda38bf848435348d9c0f3cd08ad2c8c87dc6e78c834d119df05166492db21cfdbf4ba636d8e28fed7778a6293015f97d4dafd602be11bc717fabbabe92f87a1474ba1acdf86753ad6ec3e6b98690300accd503a6256170fccd1c310df10aaa8718f9b067f293db3f15a8661a1ca0ae7516bc3e4c6f83735", "data_archive_format": null, "captions_file_url": null, "steps": 1000, "trigger_word": null, "rank": 16, "learning_rate": 0.0004, "batch_size": 1, "experimental_optimizers": "adamw8bit", "experimental_multi_checkpoints_count": 1, "experimental_multi_checkpoints_interval": null, "debug_caption_files": false, "instance_prompt": "Portrait photo"}
+```
+
+#### Model
+
+https://storage.googleapis.com/fal-flux-lora/dade937347d341c3aa5d41377afd0973_lora.safetensors
