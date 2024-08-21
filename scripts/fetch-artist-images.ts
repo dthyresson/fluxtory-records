@@ -9,8 +9,8 @@ import {
   ensureDirectoryExists,
   sleep,
 } from 'api/src/lib/utils'
+import { artists } from 'api/src/services/artists/artists'
 import { getReleasesWithPrimaryImagesByArtist } from 'api/src/services/releases/releases'
-
 // import type { Artist, Release, Image } from 'types/shared-return-types'
 
 import { getPaths } from '@redwoodjs/project-config'
@@ -96,19 +96,34 @@ export default async ({ args }) => {
   console.log(':: Executing script with args ::')
   console.log(args)
 
-  let artistName = 'New Order'
+  const { artist, all } = args
 
-  if (args.artist) {
-    artistName = args.artist
+  if (artist) {
+    console.log(`Fetching images for artist: ${artist}`)
+
+    try {
+      await fetchArtistImages(artist)
+      console.log('Successfully fetched images for artist', artist)
+    } catch (error) {
+      console.error('An error occurred:', error)
+    }
   }
 
-  console.log(`Fetching images for artist: ${artistName}`)
+  if (all) {
+    console.log(`Fetching images for all artists`)
 
-  try {
-    await fetchArtistImages(artistName)
-    console.log('Script completed successfully')
-  } catch (error) {
-    console.error('An error occurred:', error)
+    const allArtists = await artists()
+
+    try {
+      for (const artist of allArtists) {
+        console.log(`Fetching images for artist: ${artist}`)
+        await fetchArtistImages(artist.name)
+        console.log(`Successfully fetched images for artist: ${artist}`)
+      }
+      console.log('Successfully fetched images for all artists')
+    } catch (error) {
+      console.error('An error occurred:', error)
+    }
   }
 }
 
