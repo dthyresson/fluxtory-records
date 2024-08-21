@@ -12,6 +12,7 @@ import { getReleasesWithPrimaryImagesByArtist } from 'src/services/releases/rele
 const EXPORTS_DIR = path.join(getPaths().base, 'exports')
 const IMAGES_DIR = path.join(EXPORTS_DIR, 'images')
 const CAPTIONS_DIR = path.join(EXPORTS_DIR, 'captions')
+const TRIGGER = 'fktry-rcrd'
 
 export const sanitizeFilename = (filename: string): string => {
   return filename
@@ -114,7 +115,7 @@ export const generateCaptions = async (
 
   const releases = await getReleasesWithPrimaryImagesByArtist(artist.id)
   console.log(
-    `Found ${releases.length} releases for artist: ${artistName} (${artist.id})`
+    `Generating captions for ${releases.length} releases for artist: ${artistName} (${artist.id})`
   )
   if (releases.length === 0) {
     console.error(`No releases found for artist: ${artistName}`)
@@ -146,13 +147,15 @@ export const generateCaptions = async (
         return null
       }
 
-      const cover = release.genre?.name
-        ? `${release.genre?.name} style cover`.trim()
-        : 'cover'
-      const album = release.style?.name
-        ? `${release.style?.name} album`.trim()
-        : 'album'
-      const caption = `In the style of Factory Records album artwork, a ${release.format} ${cover} for the ${album} "${release.title}" by ${artistName} from ${release.year}`
+      const characteristics = [
+        release.genre?.name,
+        release.style?.name,
+        release.year,
+      ]
+        .filter(Boolean)
+        .join(', ')
+
+      const caption = `a ${TRIGGER} of the ${release.format}, \""${release.title}"\", by the artist \"${artistName}\", ${characteristics}`
       return JSON.stringify({ file_name: imageFilename, text: caption })
     })
     .filter(Boolean)

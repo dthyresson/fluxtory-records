@@ -41,5 +41,6 @@ export default async ({ args }) => {
     }
   }
 }
+
 ensureDirectoryExists(path.join(getPaths().base, 'exports', 'captions'))
 console.log('Export directories created or verified.')

@@ -12,6 +12,18 @@ This `fluxtory-records` project aims to recreate that style with generative AI.
 * Stores releases, labels, artists, and images in a local database.
 * Runs a script to generate training data for Flux: see: https://fal.ai/models/fal-ai/flux-lora-general-training
 
+## Scripts
+
+In the `scripts` directory, you'll find
+
+* `label-releases` - fetches all releases for a label, or all labels if no label is specified
+* `update-releases-with-images` - updates the releases with the images
+* `download-artist-images` - downloads the artist images
+* `generate-captions` - generates the captions for each image
+* `backup` - backup the database to an archive file
+
+
+
 ## Discogs API
 
 Basic REST API for Discogs. However we'll use the [`@lionralfs/discogs-client`](https://github.com/lionralfs/discogs-client) package to interact with the API.
@@ -30,22 +42,24 @@ export const discogsClient = new DiscogsClient({
 
 Otherwise, thumbnails and images will not returned in the response.
 
-### Get Release
+### Discogs API Examples (curl)
+
+#### Get Release
 
 ```bash
-curl https://api.discogs.com/releases/249504 --user-agent "fluxtory-records/0.1"
+curl https://api.discogs.com/releases/179699?token=YOUR_DISCOGS_TOKEN --user-agent "fluxtory-records/0.1"
 ```
 
-### Get Label
+#### Get Label
 
 ```bash
-curl https://api.discogs.com/labels/857 --user-agent "fluxtory-records/0.1"
+curl https://api.discogs.com/labels/857?token=YOUR_DISCOGS_TOKEN --user-agent "fluxtory-records/0.1"
 ```
 
-### Get Label Releases
+#### Get Label Releases
 
 ```bash
-curl https://api.discogs.com/labels/857/releases --user-agent "fluxtory-records/0.1"
+curl https://api.discogs.com/labels/857/releases?token=YOUR_DISCOGS_TOKEN  --user-agent "fluxtory-records/0.1"
 ```
 ## Training
 
