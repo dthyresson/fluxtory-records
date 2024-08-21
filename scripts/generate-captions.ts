@@ -48,13 +48,15 @@ const generateCaptions = async (artistName: string): Promise<void> => {
         }_${release.format || 'unknown format'}`
       )
 
-      const imageFilename = `${filename}.jpg`
+      const imageFilename = `${filename}.jpeg`
 
       // check if the image exists
-      const imageExists = fs.existsSync(path.join(IMAGES_DIR, imageFilename))
+      const artistDir = sanitizeFilename(artistName)
+      const imagePath = path.join(IMAGES_DIR, artistDir, imageFilename)
+      const imageExists = fs.existsSync(imagePath)
 
       if (!imageExists) {
-        console.error(`Image "${imageFilename}" not found`)
+        console.error(`Image "${imagePath}" not found`)
         return null // Return null instead of undefined
       }
 

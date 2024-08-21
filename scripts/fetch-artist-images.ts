@@ -55,7 +55,7 @@ const fetchArtistImages = async (artistName: string): Promise<void> => {
       )
       console.log(`Downloading image for "${filename}"`)
 
-      const fileExtension = path.extname(uri).toLowerCase() || '.jpg'
+      const fileExtension = path.extname(uri).toLowerCase() || '.jpeg'
       const filepath = path.join(imageDir, `${filename}${fileExtension}`)
 
       try {
