@@ -68,32 +68,32 @@ export const getLabelReleases = async (
   return { releases, pagination }
 }
 
-export const getLabelArtists = async (
-  labelId: number | string,
-  params?: typeof PaginationParameters
-): Promise<string[]> => {
-  let page = 1
-  const perPage = 100
-  const allArtists = new Set<string>()
+// export const getLabelArtists = async (
+//   labelId: number | string,
+//   params?: typeof PaginationParameters
+// ): Promise<string[]> => {
+//   let page = 1
+//   const perPage = 100
+//   const allArtists = new Set<string>()
 
-  while (true) {
-    const { releases, pagination } = await getLabelReleases(labelId, {
-      ...params,
-      page,
-      per_page: perPage,
-    })
+//   while (true) {
+//     const { releases, pagination } = await getLabelReleases(labelId, {
+//       ...params,
+//       page,
+//       per_page: perPage,
+//     })
 
-    releases.forEach((release) => allArtists.add(release.artist))
+//     releases.forEach((release) => allArtists.add(release.artist))
 
-    if (page >= pagination.pages) {
-      break
-    }
+//     if (page >= pagination.pages) {
+//       break
+//     }
 
-    page++
-  }
+//     page++
+//   }
 
-  return Array.from(allArtists)
-}
+//   return Array.from(allArtists)
+// }
 
 export const getRelease = async (
   releaseId: number | string

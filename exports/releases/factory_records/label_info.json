@@ -1,0 +1,117 @@
+{
+  "data": {
+    "id": 857,
+    "name": "Factory",
+    "resource_url": "https://api.discogs.com/labels/857",
+    "uri": "https://www.discogs.com/label/857-Factory",
+    "releases_url": "https://api.discogs.com/labels/857/releases",
+    "images": [
+      {
+        "type": "primary",
+        "uri": "https://i.discogs.com/kRo5NA0g3PKh-xg6FllOkp-w0p9J3llaS-HawSv7QBs/rs:fit/g:sm/q:90/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/MTQ0MDI5NzEwLmpw/ZWc.jpeg",
+        "resource_url": "https://i.discogs.com/kRo5NA0g3PKh-xg6FllOkp-w0p9J3llaS-HawSv7QBs/rs:fit/g:sm/q:90/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/MTQ0MDI5NzEwLmpw/ZWc.jpeg",
+        "uri150": "https://i.discogs.com/FZ1oHeCSUGBMAuhJZ_Cl7xPQbBU9ECTbt2giwwncmzU/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/MTQ0MDI5NzEwLmpw/ZWc.jpeg",
+        "width": 150,
+        "height": 150
+      },
+      {
+        "type": "secondary",
+        "uri": "https://i.discogs.com/f1vMib2r8jP8zyo9SarnsI1X1miW5LsFPM1QGckn-q8/rs:fit/g:sm/q:90/h:284/w:553/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/NDE0Njk3MTcxLTUx/MTcuanBlZw.jpeg",
+        "resource_url": "https://i.discogs.com/f1vMib2r8jP8zyo9SarnsI1X1miW5LsFPM1QGckn-q8/rs:fit/g:sm/q:90/h:284/w:553/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/NDE0Njk3MTcxLTUx/MTcuanBlZw.jpeg",
+        "uri150": "https://i.discogs.com/7CUdxd0ywIhclkAe8VfeO_a0IuFhePQaUNLN7xygVos/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/NDE0Njk3MTcxLTUx/MTcuanBlZw.jpeg",
+        "width": 553,
+        "height": 284
+      },
+      {
+        "type": "secondary",
+        "uri": "https://i.discogs.com/YHME8ocMRm4EdexfnIO-DKePewFEWseYkuqC6N1q8Mg/rs:fit/g:sm/q:90/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/MTQ0MDI5NjcyLmpw/ZWc.jpeg",
+        "resource_url": "https://i.discogs.com/YHME8ocMRm4EdexfnIO-DKePewFEWseYkuqC6N1q8Mg/rs:fit/g:sm/q:90/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/MTQ0MDI5NjcyLmpw/ZWc.jpeg",
+        "uri150": "https://i.discogs.com/NCzgRU_baoOi7zscVwdNzVrWQ8otfyTEid61nV9ceZs/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/MTQ0MDI5NjcyLmpw/ZWc.jpeg",
+        "width": 150,
+        "height": 150
+      },
+      {
+        "type": "secondary",
+        "uri": "https://i.discogs.com/gs0dwiQG6wrXA7-XL2Cva0FZClzs1r-Dj6m7f1JcfH4/rs:fit/g:sm/q:90/h:247/w:203/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/MTg2NDgwMDE4Lmpw/ZWc.jpeg",
+        "resource_url": "https://i.discogs.com/gs0dwiQG6wrXA7-XL2Cva0FZClzs1r-Dj6m7f1JcfH4/rs:fit/g:sm/q:90/h:247/w:203/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/MTg2NDgwMDE4Lmpw/ZWc.jpeg",
+        "uri150": "https://i.discogs.com/RAu6jIQEEzaoMZMXoF-tTZSWwvfma9rfhif7hDpdYOM/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/MTg2NDgwMDE4Lmpw/ZWc.jpeg",
+        "width": 203,
+        "height": 247
+      },
+      {
+        "type": "secondary",
+        "uri": "https://i.discogs.com/L0_vuJMJnaqyIlYY1AI9c5Efj9q-RyDkOpYBxCadNGM/rs:fit/g:sm/q:90/h:526/w:557/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/NjI3NTYyNzYyLTQ4/MDEuanBlZw.jpeg",
+        "resource_url": "https://i.discogs.com/L0_vuJMJnaqyIlYY1AI9c5Efj9q-RyDkOpYBxCadNGM/rs:fit/g:sm/q:90/h:526/w:557/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/NjI3NTYyNzYyLTQ4/MDEuanBlZw.jpeg",
+        "uri150": "https://i.discogs.com/nDgdIcB6jG3a3zd0tjDlbdPiinMQ5lZrUtOl6xvz2BM/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTg1Ny0x/NjI3NTYyNzYyLTQ4/MDEuanBlZw.jpeg",
+        "width": 557,
+        "height": 526
+      }
+    ],
+    "profile": "Independent record label from Manchester, UK, between 1978 and 1992.\r\n\r\nOn 19 May 1978, the TV presenter [a=Anthony H. Wilson] started The Factory, a series of club nights at the PSV/[l=The Russel Club] in Hulme, Manchester. Among the bands billed for the four opening nights were [a=The Durutti Column], [a=Cabaret Voltaire], and [a=Joy Division]. The poster for the evenings was designed by [a=Peter Saville (2)], who soon became a partner of Wilson and [a=Alan Erasmus]. In October 1979, producer [a=Martin Hannett] joined as a director too, followed in 1980 by [a=Rob Gretton] (manager of [a=Joy Division] and [a=New Order]) as fifth partner.\r\n\r\nThe club night was a success and led to the release of the double 7\" EP \"[r=11395]\" in January 1979. This EP marked the beginnings of Factory as a record label and featured bands that played at The Factory. When Wilson told Saville that their EP would be FAC 1, Saville replied that his first poster for the club was FAC 1 and the EP would be FAC 2. \r\n\r\nFactory set up its first headquarters in Erasmus' flat on 86 Palatine Road, Didsbury, Manchester, where it resided until 1990 (a blue BBC plaque was erected there in June 2017). It then moved to 1 Charles Street, Manchester, and was allocated catalogue number FAC 251.\r\n\r\nThe company [l=Factory Communications Ltd.] (FCL) was officially established on 24 October 1980.\r\n\r\nIn October 1989, Factory launched the label [l=Factory Classical].\r\n\r\nIn September 1991, news leaked out that Factory was near bankruptcy, and some record companies, including [l=Mute], [l=London Records], and [l=Warner Bros. Records], made bids on the label. The label was not sold though, and claimed it had sorted out its finances. This proved not to be the case, and on \"Black Monday\", 23 November 1992, Factory Records went into receivership with a £2.5 million debt. A last-minute saving arrangement with [l=London Records] collapsed when it became clear that, thanks to their no-contract deal, New Order —and not Factory— owned the rights to their material. \r\n\r\nFactory pioneered indie label principles such as the 50/50 profit share, and most of their record deals (until the later years of the label) were done with a handshake and not a contract.\r\n\r\nFactory constructed its own history by cataloging not only records, cassettes and videos, but also important events, posters, badges, TV programmes, concerts, T-shirts, buildings, stationery, advertising campaigns, etc. (see below).\r\n\r\nIn 1994, Wilson launched a new label, [l=Factory Too], with some releases coming out in conjunction with London Records. He also released a series of anthologies and re-releases from the Factory back catalogue via London under the name [l=Factory Once]. \r\nHe then started the label [l=Factory Records Limited], this time without a cooperation with London Records. \r\nAll labels quietly disappeared around 1998. This was followed by a short-lived digital download project called \"music33.com\". \r\nIn December 2004, Wilson announced that he was launching the \"fourth iteration of the Factory imprint\", [l=F4 Records], again failing to amount to much. \r\n\r\nMany titles from the original Factory catalogue have been reissued by the [l=LTM (4)] label. In an attempt to preserve the Factory brand and name, LTM owner James Nice, together with Alan Erasmus, Peter Saville and Tony Wilson's son Oliver, set up [l=Factory Records Ltd.] in June 2010. However, the idea was never seriously pursued and given up after one release only. Since March 2013, Factory Records Ltd. is owned by Saville alone.\r\n\r\nA dramatised history of Factory Records is portrayed in the movie \"[m=69215]\" (2002).\r\n\r\nMartin Hannett died at age 42 on 18 April 1991, as a result of heart failure. He was buried in Southern Cemetery, Manchester.\r\nRobert L. Gretton died at age 46 on 15 May 1999, of a heart attack. He was buried in Southern Cemetery, Manchester.\r\nAnthony H. Wilson died at age 57 on 10 August 2007, of a heart attack, already suffering from renal cancer. He was buried in Southern Cemetery, Manchester.\r\n\r\nNote: The label has been known on releases under differing names: starting as \"Factory\", then \"Factory Records\" and later back to just \"Factory\" again.\r\nNote: For unofficial releases, use [l=Factory (2)].\r\n\r\nNon-musical items with catalogue numbers:\r\nFAC 1: Poster \"Use Hearing Protection / The Factory\"\r\nFAC 3: Poster \"The Factory October 20th\"\r\nFAC 4: Poster \"The Factory December\"\r\nFAC 7: Stationery\r\nFAC 8: \"Menstrual Eggtimer\" (by Linder Sterling); unrealised concept except a napkin drawing\r\nFAC 9: \"The Factory Flick\"; 8mm film shown at Scala Cinema, London on 13 September 1979\r\nFAC 15: \"Zoo Meets Factory Half-Way\"; Leigh Festival from 25 to 27 August 1979 (Leigh being midpoint between Zoo's home in Liverpool and Manchester). Also Saville-designed poster\r\nFAC 21: Badges: maroon and black, with Fractured Music \"𝑓\" logo\r\nFAC 26: Poster: \"La nouvelle musique anglais\", designed by Steve Horsfall for a (cancelled) concert in Paris\r\nFAC 27: Alternative sleeve design for FAC 17 (unused)\r\nFAC 36: Closer advertising in USA (two ads in Rolling Stone magazine, June and July 1981)\r\nFAC 38: \"Below The Canal\"; unreleased A Certain Ratio video project\r\nFAC 46: \"A Video Circus\"; event and Saville-designed poster\r\nFAC 47: The Factory Communications Limited logo (callipers, gear wheel, anvil, first used on FACT 45)\r\nFAC 51: The Hacienda, Whitworth Street West. Various merchandise articles also carry that number. Opened May 1982, closed in 2000, demolished 2001 and converted into apartments\r\nFAC 61: The Factory vs. Martin Hannett lawsuit\r\nFAC 76: The Jazz Defektors Movie (unreleased video project)\r\nFAC 81: The \"Factory International Congress\", held in September 1983, also notepads\r\nFAC 83: Hacienda 1st birthday party and poster\r\nFAC 91: Facsoft Computer programme (unreleased)\r\nFAC 94: Badges: red and black, with F Dot logo\r\nFAC 98: Swing hairdressers (in basement of the Hacienda)\r\nFAC 99: Molar reconstruction of Rob Gretton\r\nFAC 101: Factory Lofts (unrealised)\r\nFAC 104: \"Madonna Inter Alia\"; The Tube broadcasts from the Hacienda\r\nFAC 109: Caroline Lavelle (untitled and undone)\r\nFAC 115: Second-generation notepaper\r\nFAC 120: Badges: crimson and black, with Factory silhouette\r\nFAC 121: \"From Factory - A Series Of London Premieres\"; Factory Week from 13 to 18 August 1984 at Riverside Studios Hammersmith (concerts, videos, Saville design and Swing hairdressers)\r\nFAC 126: Event + poster: Alan (Erasmus) Goes To Moscow\r\nFAC 131: Poster \"It isn't only lowlife who record for Factory\"\r\nFAC 136: Factory gaffer tape\r\nFAC 141: Stationery with Factory silhouette logo\r\nFAC 145: Christmas 1985 card\r\nFAC 148: Styal Mill water bucket\r\nFAC 149: Little Big Band (aborted project)\r\nFAC 151: Festival Of The Tenth Summer (also book, cards, badges, poster, flyer, installations, T-shirts)\r\nFAC 152: T-shirt \"From Manchester With Love\"\r\nFAC 159: \"Fac Facts\"; bi-monthly news bulletin with short band bios and discographies\r\nFAC 161: Deal with London based \"[l=Out Promotion]\" of Nicki Kefalas to promote Factory releases\r\nFAC 171: \"Compact\": US release of FACT 50 celebration with video/sculpture at White Columns Art Gallery on 30/09/86. Also poster and invitation card with number\r\nFAC 173: Robert Longo's video shoot of New Order's Bizarre Love Triangle\r\nFAC 174: Valuable Press Pack for FACT 164 and Durutti Column's US tour\r\nFAC 175: Christmas 1986 card\r\nFAC 181: \"Mad Fuckers\"; aborted Bailey Brothers movie project\r\nFAC 186: Festival Of The Tenth Summer (unrealised album and video concept)\r\nFAC 191: The Hacienda cat\r\nFAC 199: \"Bums For BPI\"; promo poster for FAC 198 as tactical campaign against the BPI\r\nFAC 201: Dry Bar, 28-30 Oldham Street. Also various merchandising articles carrying that number\r\nFAC 202: \"Dream Flight Balloons\"; 1987 British Airways charity event at Hyde Park\r\nFAC 203: \"12 Inches Of New Order\" ruler\r\nFAC 208: \"Disorder\"; party in the Hacienda basement after a New Order and Happy Mondays gig at the G-Mex on 17 December 1988. Also referred to NO/HM party in Real World Studios, Bath\r\nFAC 209: FAC 212 film shoot\r\nFAC 211: \"Wired\": 18-minute Channel 4 documentary about FACT 250 release on 01 July 1988. Also unrealised concept \"Book Of Numbers\"\r\nFAC 215: Vin d'Usine blanc; Hacienda house wine with labels designed by Peter Saville\r\nFAC 216: Vin d'Usine rouge; Hacienda house wine with labels designed by Peter Saville\r\nFAC 221: Factory contract binder; 12\"×12\" plates of perspex and four metal bolts to hold the contracts, designed by 8vo\r\nFAC 221: Badge \"Factory Goes To Hollywood\" black with Factory US logo\r\nFAC 227: Fred Fac; four-part catalogue in NME by Fred Dellar\r\nFAC 229: Music Week Factorial; 24-page book in Music Week magazine, 15 July 1989, celebrating 10 years of Factory\r\nFAC 231: \"Yo John!\"; ad inside 'Music Week' magazine for John Peel's 50th birthday\r\nFAC 233: Joy Division / New Order accounts\r\nFAC 235: Robert Breer's Blue Monday flickbook; Christmas 1988\r\nFAC 237: \"Here Are The Old Men\"; unrealised New Order video project\r\nFAC 238: \"Citius, Altius, Fortius\"; Hacienda T-shirt to celebrate Manchester's bid for the 1996 Olympics\r\nFAC 239: \"Halcyon Daze\"; Happy Mondays fanzines\r\nFAC 240: The Factory wallplanner\r\nFAC 241: T-shirt \"Just Say No To London\"\r\nFAC 243: Steve Mason's Technique cherub\r\nFAC 245: \"Pictures From Madchester\"; Christmas 1989\r\nFAC 248: \"On DAT already, On CD at last\"; full-page ads in 'NME' and 'Music Week' for FACD 40, 170 and DAT back catalogue\r\nFAC 251: New Factory HQ, Princess Street / Charles Street. Acquired 10/88, opened 29 September 1990, closed 11/92. Also various items and events. Re-opened 2010 as club/live venue by Peter Hook\r\nFAC 253: Bet between Tony Wilson and Rob Gretton on Technique going into the Top 5 or Wilson resigns - neither happened\r\nFACT 254: \"Guitar One:House\"; unrealised Durutti Column album\r\nFAC 258: T-shirt \"Fac Off\"\r\nFAC 259: 1990 Christmas party for Factory, Hacienda and Dry staff\r\nFAC 261: T-shirt \"Madchester\"\r\nFACT 264: \"Guitar Two:Acoustic\"; unrealised Durutti Column album\r\nFAC 265: \"From Manchester With Love\"; heart-shaped image with Stars and Stripes used on info sheets, shirts and banners during the New Music Seminar, July 1990. Also used for the Hacienda's trans-American tour 'The United States Of The Hacienda', June and July, 1990\r\nFACT 270: \"Our Dance Days\"; unrealised album concept\r\nFAC 271: New Order Technique (FACT 275) billboards and TV ads\r\nFAC 277: Joy Division Substance (FACT 250) video; unreleased\r\nFAC 281: \"Prenez Votre Desirs\"; Factory memorabilia store at Affleck's Palace, Oldham Street\r\nFAC 282: Flowers for Horse's (of Happy Mondays) wedding\r\nFAC 283: T-shirt \"EnglandNewOrder, Express Yourself\"\r\nFAC 286: \"Classics In Motion\"; series of concerts in Glasgow, Manchester and London\r\nFAC 288: T-shirt \"Call The Cops\"; also referred to as \"Shaun on One\"\r\nFAC 291: Factory Classical stationery\r\nFAC 292: Shaun Ryder \"Colours\" (unrealised single concept)\r\nFAC 294: Durutti Column: Jazz FM radio advert\r\nFAC 295: Photo-print of new Factory HQ; Christmas 1990\r\nFAC 299: T-shirt \"Factory\" logotype\r\nFAC 301: \"Think About The Future\"; conference at Sheffield, July 1990, also notepads and serviettes\r\nFAC 309: T-shirt \"Hi Nek\" (unrealised)\r\nFAC 311: Fourth-generation notepaper\r\nFAC 315: England Made Me (FACT 210); promo package\r\nFAC 317: England Made Me (FACT 210); badge\r\nFAC 318: \"Flying Start\"; Factory artwork exhibition stand\r\nFAC 321: Jonathan Demme's \"The Perfect Kiss\" video shoot\r\nFAC 331: \"The Temporary Contemporary\"; Andy Woodcock designed Factory boardroom table which was later broken by the Happy Mondays\r\nFAC 339: MTV 120 Minutes feature on Factory (broadcast in January 1992)\r\nFAC 342: \"Pills 'N' Thrills And Bellyaches\" album launch; meal organized by Factory and London at London Zoo Aquarium\r\nFAC 345: \"Love and Peace/1991-1992\"; wrap-around sleeve for the booklet included with the Palatine boxed set\r\nFAC 351: Jon Savage's book \"The Hacienda Must be Built!\"\r\nFAC 352: Happy Mondays - Staying Alive; unreleased single concept\r\nFAC 354: Palatine celebrations\r\n\r\nEven after Factory's demise, Wilson would occasionally allocate FAC numbers for special Factory-related projects and events: \r\nFAC 383: The Vikings; New Order fan collective (number allocated 2004)\r\nFAC 413: 'Jack' magazine January 2003 with a special on Factory (part two in February 2003)\r\nFAC 421: A Factory website (number allocated 2004)\r\nFAC 424: Anthony H. Wilson's book  \"24 Hour Party People\" (number allocated in 2002); also 24 Hour Party People movie DVD\r\nFAC 433: 24 Hour Party People movie website (number allocated in 2001)\r\nFAC 441: World In Motion website (number allocated 2004)\r\nFAC 451: Jane Stanton's Hacienda video documentary \"Love Will Tear Us Apart\" (number allocated 1999)\r\nFAC 451: 24 Hour Party People movie's reconstruction of the Hacienda and party (number allocated 2002)\r\nFAC 461: Matthew Robertson's book \"Factory Records The Complete Graphic Album\" (number allocated 2006)\r\nFAC 471: Hallelujah, Hot and New Year parties (number allocated 2006)\r\nFAC 473: Free-standing 10-foot fiberglass Gibson Les Paul with FAC 73 colour code and signed by New Order (number allocated 2007)\r\nFAC 481: 'Building' magazine, issue January 2006, with Tony Wilson feature\r\nFAC 491: The Hacienda 25th anniversary exhibition at Urbis (number allocated 2007)\r\nFAC 501: Plaque on Anthony Wilson's coffin (number allocated 2007)\r\nFAC 511: \"And You Forgotten\"; Rob Gretton Special; event, booklet, posters (number allocated in 2004)",
+    "parent_label": {
+      "id": 264405,
+      "name": "Factory Communications Ltd.",
+      "resource_url": "https://api.discogs.com/labels/264405"
+    },
+    "data_quality": "Correct",
+    "urls": [
+      "https://factoryrecords.org/",
+      "https://www.facebook.com/fac515",
+      "https://en.wikipedia.org/wiki/Factory_Records",
+      "https://www.frombrusselswithlove.nl/",
+      "https://web.archive.org/web/20120428135412/http://launch.groups.yahoo.com/group/faclist/"
+    ],
+    "sublabels": [
+      {
+        "id": 51904,
+        "name": "F4 Records",
+        "resource_url": "https://api.discogs.com/labels/51904"
+      },
+      {
+        "id": 16808,
+        "name": "Factory (US)",
+        "resource_url": "https://api.discogs.com/labels/16808"
+      },
+      {
+        "id": 60169,
+        "name": "Factory America",
+        "resource_url": "https://api.discogs.com/labels/60169"
+      },
+      {
+        "id": 16809,
+        "name": "Factory Benelux",
+        "resource_url": "https://api.discogs.com/labels/16809"
+      },
+      {
+        "id": 1873725,
+        "name": "Factory Classical",
+        "resource_url": "https://api.discogs.com/labels/1873725"
+      },
+      {
+        "id": 37137,
+        "name": "Factory Once",
+        "resource_url": "https://api.discogs.com/labels/37137"
+      },
+      {
+        "id": 37178,
+        "name": "Factory Records Australasia",
+        "resource_url": "https://api.discogs.com/labels/37178"
+      },
+      {
+        "id": 32853,
+        "name": "Factory Too",
+        "resource_url": "https://api.discogs.com/labels/32853"
+      },
+      {
+        "id": 60170,
+        "name": "Of Factory New York",
+        "resource_url": "https://api.discogs.com/labels/60170"
+      }
+    ]
+  },
+  "rateLimit": {
+    "limit": 60,
+    "used": 2,
+    "remaining": 58
+  }
+}

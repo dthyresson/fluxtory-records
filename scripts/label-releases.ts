@@ -43,6 +43,14 @@ const processReleases = async (releases: LabelRelease[], label: LabelInfo) => {
     }
 
     try {
+      console.log(`Creating release: ${title}`)
+      const existingRelease = await db.release.findUnique({
+        where: { discogsId: id },
+      })
+      if (existingRelease) {
+        console.log(`Release already exists: ${title}`)
+        continue
+      }
       await db.release.create({
         data: {
           discogsId: id,
@@ -68,13 +76,14 @@ const processReleases = async (releases: LabelRelease[], label: LabelInfo) => {
         },
       })
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientValidationError) {
-        if (error.message.includes('Unique constraint failed')) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
           console.warn('Release already exists. Skipping... ')
         } else {
           console.error(error)
         }
       }
+      console.error(error)
     }
   }
 }
