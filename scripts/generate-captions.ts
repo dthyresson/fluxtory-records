@@ -2,11 +2,13 @@ import fs from 'fs'
 import path from 'path'
 
 import { db } from 'api/src/lib/db'
+import { artists } from 'api/src/services/artists/artists'
 import { getReleasesWithPrimaryImagesByArtist } from 'api/src/services/releases/releases'
 
 import { getPaths } from '@redwoodjs/project-config'
 
 const EXPORTS_DIR = path.join(getPaths().base, 'exports')
+const IMAGES_DIR = path.join(EXPORTS_DIR, 'images')
 const CAPTIONS_DIR = path.join(EXPORTS_DIR, 'captions')
 
 const sanitizeFilename = (filename: string): string => {
@@ -38,43 +40,74 @@ const generateCaptions = async (artistName: string): Promise<void> => {
   )}_captions_${timestamp}.jsonl`
   const captionsFilepath = path.join(CAPTIONS_DIR, captionsFilename)
 
-  const captions = releases.map((release) => {
-    const filename = sanitizeFilename(
-      `${release.discogsId}_${release.artist?.name || artistName}_${
-        release.title
-      }_${release.format || 'unknown format'}`
-    )
-    const cover = release.genre?.name
-      ? `${release.genre?.name} style cover`.trim()
-      : 'cover'
-    const album = release.style?.name
-      ? `${release.style?.name} album`.trim()
-      : 'album'
-    const caption = `In the style of Factory Records album artwork, a ${release.format} ${cover} for the ${album} "${release.title}" by ${artistName} from ${release.year}`
-    return JSON.stringify({ file_name: `${filename}.jpg`, text: caption })
-  })
+  const captions = releases
+    .map((release) => {
+      const filename = sanitizeFilename(
+        `${release.discogsId}_${release.artist?.name || artistName}_${
+          release.title
+        }_${release.format || 'unknown format'}`
+      )
 
-  fs.writeFileSync(captionsFilepath, captions.join('\n'))
-  console.log(`Generated captions file: ${captionsFilepath}`)
+      const imageFilename = `${filename}.jpg`
+
+      // check if the image exists
+      const imageExists = fs.existsSync(path.join(IMAGES_DIR, imageFilename))
+
+      if (!imageExists) {
+        console.error(`Image "${imageFilename}" not found`)
+        return null // Return null instead of undefined
+      }
+
+      const cover = release.genre?.name
+        ? `${release.genre?.name} style cover`.trim()
+        : 'cover'
+      const album = release.style?.name
+        ? `${release.style?.name} album`.trim()
+        : 'album'
+      const caption = `In the style of Factory Records album artwork, a ${release.format} ${cover} for the ${album} "${release.title}" by ${artistName} from ${release.year}`
+      return JSON.stringify({ file_name: imageFilename, text: caption })
+    })
+    .filter(Boolean) // Remove null entries
+
+  if (captions.length > 0) {
+    fs.writeFileSync(captionsFilepath, captions.join('\n'))
+    console.log(`Generated captions file: ${captionsFilepath}`)
+  } else {
+    console.log(`No captions generated for artist: ${artistName}`)
+  }
 }
 
 export default async ({ args }) => {
   console.log(':: Executing script with args ::')
   console.log(args)
 
-  let artistName = 'New Order'
+  const { artist, all } = args
 
-  if (args.artist) {
-    artistName = args.artist
+  if (artist) {
+    console.log(`Generating captions for artist: ${artist}`)
+    try {
+      await generateCaptions(artist)
+      console.log(`Successfully generated captions for artist: ${artist}`)
+    } catch (error) {
+      console.error('An error occurred:', error)
+    }
   }
 
-  console.log(`Generating captions for artist: ${artistName}`)
+  if (all) {
+    console.log(`Generating captions for all artists`)
+    const allArtists = await artists()
 
-  try {
-    await generateCaptions(artistName)
-    console.log('Script completed successfully')
-  } catch (error) {
-    console.error('An error occurred:', error)
+    try {
+      for (const artist of allArtists) {
+        await generateCaptions(artist.name)
+        console.log(
+          `Successfully generated captions for artist: ${artist.name}`
+        )
+      }
+      console.log('Successfully generated captions for all artists')
+    } catch (error) {
+      console.error('An error occurred:', error)
+    }
   }
 }
 

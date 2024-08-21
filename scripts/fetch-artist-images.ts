@@ -116,9 +116,9 @@ export default async ({ args }) => {
 
     try {
       for (const artist of allArtists) {
-        console.log(`Fetching images for artist: ${artist}`)
+        console.log(`Fetching images for artist: ${artist.name}`)
         await fetchArtistImages(artist.name)
-        console.log(`Successfully fetched images for artist: ${artist}`)
+        console.log(`Successfully fetched images for artist: ${artist.name}`)
       }
       console.log('Successfully fetched images for all artists')
     } catch (error) {
