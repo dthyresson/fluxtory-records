@@ -1,8 +1,15 @@
 import fs from 'fs'
 import https from 'https'
 import path from 'path'
+import { getPaths } from '@redwoodjs/project-config'
+import { db } from 'src/lib/db'
+import { getReleasesWithPrimaryImagesByArtist } from 'src/services/releases/releases'
 
 import archiver from 'archiver'
+
+const EXPORTS_DIR = path.join(getPaths().base, 'exports')
+const IMAGES_DIR = path.join(EXPORTS_DIR, 'images')
+const CAPTIONS_DIR = path.join(EXPORTS_DIR, 'captions')
 
 export const sanitizeFilename = (filename: string): string => {
   return filename
@@ -92,4 +99,56 @@ export const ensureDirectoryExists = (dirPath: string): void => {
 
 export const sleep = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+export const generateCaptions = async (artistName: string): Promise<void> => {
+  const artist = await db.artist.findUnique({ where: { name: artistName } })
+  if (!artist) {
+    console.error(`Artist "${artistName}" not found`)
+    return
+  }
+
+  const releases = await getReleasesWithPrimaryImagesByArtist(artist.id)
+  console.log(
+    `Found ${releases.length} releases for artist: ${artistName} (${artist.id})`
+  )
+  if (releases.length === 0) {
+    console.error(`No releases found for artist: ${artistName}`)
+    return
+  }
+
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
+  const captionsFilename = `${sanitizeFilename(
+    artistName
+  )}_captions_${timestamp}.jsonl`
+  const captionsFilepath = path.join(CAPTIONS_DIR, captionsFilename)
+
+  const captions = releases
+    .map((release) => {
+      const filename = sanitizeFilename(
+        `${release.discogsId}_${release.artist?.name || artistName}_${
+          release.title
+        }_${release.format || 'unknown format'}`
+      )
+
+      const imageFilename = `${filename}.jpeg`
+
+      const artistDir = sanitizeFilename(artistName)
+      const imagePath = path.join(IMAGES_DIR, artistDir, imageFilename)
+      const imageExists = fs.existsSync(imagePath)
+
+      if (!imageExists) {
+        console.error(`Image "${imagePath}" not found`)
+        return null
+      }
+
+      const cover = release.genre?.name ? `${release.genre?.name} style cover`.trim() : 'cover'
+      const album = release.style?.name ? `${release.style?.name} album`.trim() : 'album'
+      const caption = `In the style of Factory Records album artwork, a ${release.format} ${cover} for the ${album} "${release.title}" by ${artistName} from ${release.year}`
+      return JSON.stringify({ file_name: imageFilename, text: caption })
+    })
+    .filter(Boolean)
+
+  fs.writeFileSync(captionsFilepath, captions.join('\n'))
+  console.log(`Generated captions file: ${captionsFilepath}`)
 }
