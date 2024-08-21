@@ -17,6 +17,13 @@ import type {
 
 // This gets particularly valuable when you want to return a union type, an interface,
 // or a model where the prisma model is nested pretty deeply (GraphQL connections, for example.)
+export interface AddImageToTrainingSetInput {
+  __typename?: 'AddImageToTrainingSetInput'
+  imageId: number
+  newVersion?: boolean | null
+  trainingSetId?: number | null
+}
+
 export interface CreateArtistInput {
   __typename?: 'CreateArtistInput'
   name: string
@@ -75,6 +82,7 @@ export interface CreateTrainingSetInput {
 
 export interface Mutation {
   __typename?: 'Mutation'
+  addImageToTrainingSet: PTrainingSet
   createArtist: PArtist
   createGenre: PGenre
   createImage: PImage
@@ -102,6 +110,7 @@ export interface Query {
   __typename?: 'Query'
   artist?: PArtist | null
   artists: PArtist[]
+  currentTrainingSet?: PTrainingSet | null
   genre?: PGenre | null
   genres: PGenre[]
   image?: PImage | null

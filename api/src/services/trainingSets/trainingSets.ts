@@ -12,7 +12,7 @@ export const trainingSets: TrainingSetsResolver = async () => {
   return await db.trainingSet.findMany({
     orderBy: { id: 'asc' },
     include: {
-      releases: true,
+      images: true,
     },
   })
 }
@@ -21,7 +21,7 @@ export const trainingSet: TrainingSetResolver = async ({ id }) => {
   return await db.trainingSet.findUnique({
     where: { id },
     include: {
-      releases: true,
+      images: true,
     },
   })
 }
@@ -32,7 +32,7 @@ export const createTrainingSet: CreateTrainingSetResolver = async ({
   return await db.trainingSet.create({
     data: input,
     include: {
-      releases: true,
+      images: true,
     },
   })
 }
@@ -45,7 +45,7 @@ export const updateTrainingSet: UpdateTrainingSetResolver = async ({
     data: input,
     where: { id },
     include: {
-      releases: true,
+      images: true,
     },
   })
 }

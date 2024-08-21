@@ -1,3 +1,10 @@
+export interface AddImageToTrainingSetInput {
+  __typename?: 'AddImageToTrainingSetInput'
+  imageId: number
+  newVersion?: boolean | null
+  trainingSetId?: number | null
+}
+
 export interface Artist {
   __typename?: 'Artist'
   createdAt: DateTime
@@ -97,6 +104,7 @@ export interface Label {
 
 export interface Mutation {
   __typename?: 'Mutation'
+  addImageToTrainingSet: TrainingSet
   createArtist: Artist
   createGenre: Genre
   createImage: Image
@@ -124,6 +132,7 @@ export interface Query {
   __typename?: 'Query'
   artist?: Artist | null
   artists: Artist[]
+  currentTrainingSet?: TrainingSet | null
   genre?: Genre | null
   genres: Genre[]
   image?: Image | null
@@ -184,7 +193,7 @@ export interface TrainingSet {
   createdAt: DateTime
   description?: string | null
   id: number
-  releases: Array<Release>
+  images: Array<Image>
   updatedAt: DateTime
   version: number
 }
