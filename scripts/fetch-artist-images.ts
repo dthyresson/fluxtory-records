@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import * as readline from 'readline'
 
 import { db } from 'api/src/lib/db'
 import {
@@ -95,10 +96,35 @@ const fetchArtistImages = async (artistName: string): Promise<void> => {
 
   // Create zip archive with both images and captions
 
-  // copy the captions file to the imageDir
+  // Replace the file copying code with this new function
+  async function processCaptionsFile(
+    captionsFilePath: string,
+    imageDir: string
+  ) {
+    if (!captionsFilePath) return
+
+    const fileStream = fs.createReadStream(captionsFilePath)
+    const rl = readline.createInterface({
+      input: fileStream,
+      crlfDelay: Infinity,
+    })
+
+    for await (const line of rl) {
+      const item = JSON.parse(line)
+      const baseName = path.basename(
+        item.file_name,
+        path.extname(item.file_name)
+      )
+      const txtFileName = `${baseName}.txt`
+      const txtFilePath = path.join(imageDir, txtFileName)
+
+      fs.writeFileSync(txtFilePath, item.text)
+    }
+  }
+
+  // Replace the file copying code with this function call
   if (captionsFilePath) {
-    const captionsFile = path.basename(captionsFilePath)
-    fs.copyFileSync(captionsFilePath, path.join(imageDir, captionsFile))
+    await processCaptionsFile(captionsFilePath, imageDir)
   }
 
   await createZipArchive(imageDir, zipFilepath)

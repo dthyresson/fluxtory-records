@@ -1,10 +1,12 @@
-import { artists } from 'api/src/services/artists/artists'
+import path from 'path'
+
 import { generateCaptions } from 'api/src/lib/utils'
+import { ensureDirectoryExists } from 'api/src/lib/utils'
+import { artists } from 'api/src/services/artists/artists'
 
 // Ensure the export directories exist
-import { ensureDirectoryExists } from 'api/src/lib/utils'
+
 import { getPaths } from '@redwoodjs/project-config'
-import path from 'path'
 
 export default async ({ args }) => {
   console.log(':: Executing script with args ::')
