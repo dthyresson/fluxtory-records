@@ -8,6 +8,7 @@
     "@redwoodjs/api": "7.7.4",
     "@redwoodjs/graphql-server": "7.7.4",
     "@unkey/ratelimit": "^0.4.1",
+    "archiver": "^7.0.1",
     "prisma": "5.18.0"
   }
 }

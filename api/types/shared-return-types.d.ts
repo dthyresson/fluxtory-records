@@ -101,6 +101,7 @@ export interface Query {
   redwood?: Redwood | null
   release?: PRelease | null
   releases: PRelease[]
+  releasesByLabel: PRelease[]
   style?: PStyle | null
   styles: PStyle[]
 }
