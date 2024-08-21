@@ -1,17 +1,15 @@
+import fs from 'fs'
 import path from 'path'
+
 import { db } from 'api/src/lib/db'
-import {
-  discogs,
-  getLabelById,
-  getLabelByName,
-  LABELS,
-} from 'api/src/lib/discogs'
-import { getReleasesWithPrimaryImagesByArtist } from 'api/src/services/releases/releases'
+import { discogs, getLabelByName, LABELS } from 'api/src/lib/discogs'
 import {
   sanitizeFilename,
   ensureDirectoryExists,
   sleep,
 } from 'api/src/lib/utils'
+import { getReleasesWithPrimaryImagesByArtist } from 'api/src/services/releases/releases'
+
 import { getPaths } from '@redwoodjs/project-config'
 
 const EXPORTS_DIR = path.join(getPaths().base, 'exports', 'releases')
@@ -34,11 +32,14 @@ const fetchLabelReleases = async (labelName: string): Promise<void> => {
 
     // Save label info
     const labelInfoPath = path.join(labelDir, 'label_info.json')
-    await fs.promises.writeFile(labelInfoPath, JSON.stringify(labelInfo, null, 2))
+    await fs.promises.writeFile(
+      labelInfoPath,
+      JSON.stringify(labelInfo, null, 2)
+    )
 
     // Save releases
     const releasesPath = path.join(labelDir, 'releases.json')
-    await fs.promises.writeFile(releasesPath, JSON.stringify(releases, null, 2))
+    fs.writeFileSync(releasesPath, JSON.stringify(releases, null, 2))
 
     console.log(`Saved label info and releases for "${labelName}"`)
 
@@ -47,9 +48,17 @@ const fetchLabelReleases = async (labelName: string): Promise<void> => {
       const artistName = release.artist
       const artist = await db.artist.findUnique({ where: { name: artistName } })
       if (artist) {
-        const artistReleases = await getReleasesWithPrimaryImagesByArtist(artist.id)
-        const artistReleasesPath = path.join(labelDir, `${sanitizeFilename(artistName)}_releases.json`)
-        await fs.promises.writeFile(artistReleasesPath, JSON.stringify(artistReleases, null, 2))
+        const artistReleases = await getReleasesWithPrimaryImagesByArtist(
+          artist.id
+        )
+        const artistReleasesPath = path.join(
+          labelDir,
+          `${sanitizeFilename(artistName)}_releases.json`
+        )
+        await fs.promises.writeFile(
+          artistReleasesPath,
+          JSON.stringify(artistReleases, null, 2)
+        )
         console.log(`Saved releases for artist "${artistName}"`)
       } else {
         console.warn(`Artist "${artistName}" not found in the database`)
@@ -71,24 +80,11 @@ const fetchAllLabelsReleases = async (): Promise<void> => {
   }
 }
 
-const parseArgs = (args: string[]): { label?: string; all: boolean } => {
-  const parsedArgs = { label: undefined, all: false }
-  for (let i = 0; i < args.length; i++) {
-    if (args[i] === '--label' && i + 1 < args.length) {
-      parsedArgs.label = args[i + 1]
-      i++
-    } else if (args[i] === '--all') {
-      parsedArgs.all = true
-    }
-  }
-  return parsedArgs
-}
-
 export default async ({ args }) => {
   console.log(':: Executing script with args ::')
   console.log(args)
 
-  const { label, all } = parseArgs(args)
+  const { label, all } = args
 
   ensureDirectoryExists(EXPORTS_DIR)
 
@@ -108,25 +104,5 @@ export default async ({ args }) => {
   } catch (error) {
     console.error('An error occurred:', error)
     process.exit(1)
-  }
-}
-
-// Helper function to handle rate limiting
-const handleRateLimit = async (retryAfter: number): Promise<void> => {
-  console.log(`Rate limited. Waiting for ${retryAfter} seconds...`)
-  await sleep(retryAfter * 1000)
-}
-
-// Modify the Discogs client to handle rate limiting
-const originalRequest = discogs.client._request.bind(discogs.client)
-discogs.client._request = async (...args) => {
-  try {
-    return await originalRequest(...args)
-  } catch (error) {
-    if (error.statusCode === 429 && error.response.headers['retry-after']) {
-      await handleRateLimit(parseInt(error.response.headers['retry-after'], 10))
-      return discogs.client._request(...args)
-    }
-    throw error
   }
 }

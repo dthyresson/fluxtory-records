@@ -6963,6 +6963,7 @@ __metadata:
     "@redwoodjs/api": "npm:7.7.4"
     "@redwoodjs/graphql-server": "npm:7.7.4"
     "@unkey/ratelimit": "npm:^0.4.1"
+    archiver: "npm:^7.0.1"
     prisma: "npm:5.18.0"
   languageName: unknown
   linkType: soft
@@ -18223,7 +18224,6 @@ __metadata:
   dependencies:
     "@redwoodjs/core": "npm:7.7.4"
     "@redwoodjs/project-config": "npm:7.7.4"
-    archiver: "npm:^7.0.1"
   languageName: unknown
   linkType: soft
 

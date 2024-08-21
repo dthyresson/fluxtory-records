@@ -2,14 +2,14 @@ import fs from 'fs'
 import path from 'path'
 
 import { db } from 'api/src/lib/db'
-import { getReleasesWithPrimaryImagesByArtist } from 'api/src/services/releases/releases'
 import {
   sanitizeFilename,
   downloadImage,
   createZipArchive,
   ensureDirectoryExists,
-  sleep
+  sleep,
 } from 'api/src/lib/utils'
+import { getReleasesWithPrimaryImagesByArtist } from 'api/src/services/releases/releases'
 
 // import type { Artist, Release, Image } from 'types/shared-return-types'
 
