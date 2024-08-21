@@ -16,10 +16,10 @@ This `fluxtory-records` project aims to recreate that style with generative AI.
 
 In the `scripts` directory, you'll find
 
-* `label-releases` - fetches all releases for a label, or all labels if no label is specified
+* `label-releases` - fetches all releases for a --label, or --all labels if no label is specified
 * `update-releases-with-images` - updates the releases with the images
-* `download-artist-images` - downloads the artist images
-* `generate-captions` - generates the captions for each image
+* `download-artist-images` - downloads the --artist images, or --all
+* `generate-captions` - generates the captions for each image, for an --artist, or --all
 * `backup` - backup the database to an archive file
 
 

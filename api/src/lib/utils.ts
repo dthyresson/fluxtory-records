@@ -1,6 +1,7 @@
 import fs from 'fs'
 import https from 'https'
 import path from 'path'
+import * as readline from 'readline'
 
 import archiver from 'archiver'
 
@@ -155,7 +156,7 @@ export const generateCaptions = async (
         .filter(Boolean)
         .join(', ')
 
-      const caption = `a ${TRIGGER} of the ${release.format}, \""${release.title}"\", by the artist \"${artistName}\", ${characteristics}`
+      const caption = `a ${TRIGGER} of the ${release.format}, "${release.title}", by the artist "${artistName}", ${characteristics}`
       return JSON.stringify({ file_name: imageFilename, text: caption })
     })
     .filter(Boolean)
@@ -172,8 +173,29 @@ export const generateCaptions = async (
   }
 
   fs.writeFileSync(captionsFilepath, captions.join('\n'))
+  console.log(`Generated captions file: ${captionsFilepath}`)
 
   return captionsFilepath
+}
 
-  console.log(`Generated captions file: ${captionsFilepath}`)
+export const processCaptionsFile = async (
+  captionsFilePath: string,
+  imageDir: string
+): Promise<void> => {
+  if (!captionsFilePath) return
+
+  const fileStream = fs.createReadStream(captionsFilePath)
+  const rl = readline.createInterface({
+    input: fileStream,
+    crlfDelay: Infinity,
+  })
+
+  for await (const line of rl) {
+    const item = JSON.parse(line)
+    const baseName = path.basename(item.file_name, path.extname(item.file_name))
+    const txtFileName = `${baseName}.txt`
+    const txtFilePath = path.join(imageDir, txtFileName)
+
+    fs.writeFileSync(txtFilePath, item.text)
+  }
 }

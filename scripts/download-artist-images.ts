@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import * as readline from 'readline'
 
 import { db } from 'api/src/lib/db'
+import { processCaptionsFile } from 'api/src/lib/utils'
 import {
   sanitizeFilename,
   downloadImage,
@@ -90,40 +90,13 @@ const downloadArtistImages = async (artistName: string): Promise<void> => {
 
   // Generate captions for the artist
   const captionsFilePath = await generateCaptions(artistName)
+  if (captionsFilePath) {
+    await processCaptionsFile(captionsFilePath, imageDir)
+  }
 
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
   const zipFilename = `${sanitizeFilename(artistName)}_${timestamp}.zip`
   const zipFilepath = path.join(TRAINING_DIR, zipFilename)
-
-  async function processCaptionsFile(
-    captionsFilePath: string,
-    imageDir: string
-  ) {
-    if (!captionsFilePath) return
-
-    const fileStream = fs.createReadStream(captionsFilePath)
-    const rl = readline.createInterface({
-      input: fileStream,
-      crlfDelay: Infinity,
-    })
-
-    for await (const line of rl) {
-      const item = JSON.parse(line)
-      const baseName = path.basename(
-        item.file_name,
-        path.extname(item.file_name)
-      )
-      const txtFileName = `${baseName}.txt`
-      const txtFilePath = path.join(imageDir, txtFileName)
-
-      fs.writeFileSync(txtFilePath, item.text)
-    }
-  }
-
-  // Replace the file copying code with this function call
-  if (captionsFilePath) {
-    await processCaptionsFile(captionsFilePath, imageDir)
-  }
 
   await createZipArchive(imageDir, zipFilepath)
   console.log(`Created zip archive: ${zipFilepath}`)
