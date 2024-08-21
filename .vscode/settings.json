@@ -10,5 +10,11 @@
   },
   "cSpell.words": [
     "fluxtory"
+  ],
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "activeClassName",
+    "errorClassName"
   ]
 }
