@@ -2,34 +2,36 @@ import { AddImageToTrainingSetResolver } from 'types/addImageToTrainingSet'
 
 import { db } from 'src/lib/db'
 
+import { currentTrainingSet } from './currentTrainingSet'
+
 export const addImageToTrainingSet: AddImageToTrainingSetResolver = async ({
   input,
 }) => {
+  let trainingSet = null
   let trainingSetId = input.trainingSetId
-  let version = 1
-  const trainingSet = await db.trainingSet.findUnique({
-    where: { id: input.trainingSetId },
-  })
+  const version = (await currentTrainingSet())?.version || 1
 
-  if (!trainingSetId) {
-    const trainingSet = await db.trainingSet.create({
-      data: {
-        version,
-      },
+  if (input.trainingSetId) {
+    const trainingSet = await db.trainingSet.findUnique({
+      where: { id: input.trainingSetId },
     })
-    trainingSetId = trainingSet.id
-  }
-
-  if (input.newVersion) {
-    if (trainingSet.version) {
-      version = trainingSet.version + 1
+    if (trainingSet) {
+      trainingSetId = trainingSet.id
     }
+  } else if (input.newVersion) {
     const newTrainingSet = await db.trainingSet.create({
       data: {
-        version,
+        version: version + 1,
       },
     })
     trainingSetId = newTrainingSet.id
+  } else {
+    trainingSet = await db.trainingSet.create({
+      data: {
+        version: version + 1,
+      },
+    })
+    trainingSetId = trainingSet.id
   }
 
   return await db.trainingSet.update({

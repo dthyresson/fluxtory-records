@@ -1,4 +1,5 @@
 import { Link, routes } from '@redwoodjs/router'
+import { Toaster } from '@redwoodjs/web/toast'
 
 type MainLayoutProps = {
   children?: React.ReactNode
@@ -7,6 +8,8 @@ type MainLayoutProps = {
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div>
+      <Toaster />
+
       <nav className="bg-gray-800 p-4">
         <div className="container mx-auto">
           <Link

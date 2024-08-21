@@ -9,9 +9,8 @@ export const schema = gql`
   }
 
   type Query {
-    trainingSets: [TrainingSet!]! @skipAuth
-    trainingSet(id: Int!): TrainingSet @skipAuth
-    currentTrainingSet: TrainingSet @skipAuth
+    trainingSets: [TrainingSet!]! @requireAuth
+    trainingSet(id: Int!): TrainingSet @requireAuth
   }
 
   input CreateTrainingSetInput {
@@ -24,18 +23,10 @@ export const schema = gql`
     description: String
   }
 
-  input AddImageToTrainingSetInput {
-    imageId: Int!
-    trainingSetId: Int
-    newVersion: Boolean
-  }
-
   type Mutation {
-    createTrainingSet(input: CreateTrainingSetInput!): TrainingSet! @blocked
+    createTrainingSet(input: CreateTrainingSetInput!): TrainingSet! @requireAuth
     updateTrainingSet(id: Int!, input: UpdateTrainingSetInput!): TrainingSet!
-      @blocked
-    deleteTrainingSet(id: Int!): TrainingSet! @blocked
-    addImageToTrainingSet(input: AddImageToTrainingSetInput!): TrainingSet!
-      @blocked
+      @requireAuth
+    deleteTrainingSet(id: Int!): TrainingSet! @requireAuth
   }
 `
