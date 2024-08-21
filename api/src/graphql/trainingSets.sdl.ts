@@ -11,13 +11,11 @@ export const schema = gql`
   type Query {
     trainingSets: [TrainingSet!]! @blocked
     trainingSet(id: Int!): TrainingSet @blocked
-    latestTrainingSetVersion: Int! @blocked
   }
 
   input CreateTrainingSetInput {
     version: Int!
     description: String
-    releaseIds: [Int!]!
   }
 
   input UpdateTrainingSetInput {
@@ -26,7 +24,7 @@ export const schema = gql`
   }
 
   type Mutation {
-    createTrainingSet(input: CreateTrainingSetInput!): TrainingSet!
+    createTrainingSet(input: CreateTrainingSetInput!): TrainingSet! @blocked
     updateTrainingSet(id: Int!, input: UpdateTrainingSetInput!): TrainingSet!
       @blocked
     deleteTrainingSet(id: Int!): TrainingSet! @blocked
