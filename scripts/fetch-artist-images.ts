@@ -19,7 +19,7 @@ import { getPaths } from '@redwoodjs/project-config'
 
 const EXPORTS_DIR = path.join(getPaths().base, 'exports', 'images')
 const CAPTIONS_DIR = path.join(getPaths().base, 'exports', 'captions')
-const TRAINING_DIR = path.join(EXPORTS_DIR, 'training')
+const TRAINING_DIR = path.join(getPaths().base, 'exports', 'training')
 
 const fetchArtistImages = async (artistName: string): Promise<void> => {
   const artist = await db.artist.findUnique({ where: { name: artistName } })
