@@ -128,6 +128,7 @@ export interface Mutation {
   deleteStyle: Style
   deleteTrainingSet: TrainingSet
   deleteTrainingSetImage: TrainingSetImage
+  downloadTrainingSet: TrainingSetDownload
   updateArtist: Artist
   updateGenre: Genre
   updateImage: Image
@@ -210,6 +211,12 @@ export interface TrainingSet {
   trainingSetImages: Array<TrainingSetImage>
   updatedAt: DateTime
   version: number
+}
+
+export interface TrainingSetDownload {
+  __typename?: 'TrainingSetDownload'
+  trainingSet: TrainingSet
+  url: string
 }
 
 export interface TrainingSetImage {

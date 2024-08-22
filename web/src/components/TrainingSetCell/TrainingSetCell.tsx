@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import type {
   FindTrainingSetQuery,
   FindTrainingSetQueryVariables,
@@ -33,9 +35,20 @@ export const QUERY: TypedDocumentNode<
 `
 
 const UPDATE_TRAINING_SET_CAPTIONS = gql`
-  mutation UpdateTrainingSetCaptions($trainingSetId: Int!) {
-    updateTrainingSetCaptions(trainingSetId: $trainingSetId) {
+  mutation UpdateTrainingSetCaptions($id: Int!) {
+    updateTrainingSetCaptions(id: $id) {
       id
+    }
+  }
+`
+
+const DOWNLOAD_TRAINING_SET = gql`
+  mutation DownloadTrainingSet($id: Int!) {
+    downloadTrainingSet(id: $id) {
+      url
+      trainingSet {
+        id
+      }
     }
   }
 `
@@ -54,6 +67,7 @@ export const Success = ({
   trainingSet,
   queryResult,
 }: CellSuccessProps<FindTrainingSetQuery, FindTrainingSetQueryVariables>) => {
+  const [downloadLink, setDownloadLink] = useState<string | null>(null)
   const [updateTrainingSetCaptions] = useMutation(
     UPDATE_TRAINING_SET_CAPTIONS,
     {
@@ -64,10 +78,19 @@ export const Success = ({
     }
   )
 
+  const [downloadTrainingSet] = useMutation(DOWNLOAD_TRAINING_SET, {
+    onCompleted: () => {
+      toast.success('Training set download started')
+    },
+    onError: (error) => {
+      toast.error(`Failed to download training set: ${error.message}`)
+    },
+  })
+
   const handleUpdateCaptions = () => {
     const loadingToast = toast.loading('Updating captions...')
     updateTrainingSetCaptions({
-      variables: { trainingSetId: trainingSet.id },
+      variables: { id: trainingSet.id },
       onCompleted: () => {
         toast.dismiss(loadingToast)
         toast.success('Captions updated successfully')
@@ -75,6 +98,24 @@ export const Success = ({
       onError: (error) => {
         toast.dismiss(loadingToast)
         toast.error(`Failed to update captions: ${error.message}`)
+      },
+    })
+  }
+
+  const handleDownloadTrainingSet = (id: number) => {
+    const loadingToast = toast.loading('Preparing download...')
+    downloadTrainingSet({
+      variables: { id },
+      onCompleted: (data) => {
+        toast.dismiss(loadingToast)
+        setDownloadLink(data.downloadTrainingSet.url)
+
+        toast.success(
+          `Training set download started ${data.downloadTrainingSet.url}`
+        )
+      },
+      onError: () => {
+        toast.dismiss(loadingToast)
       },
     })
   }
@@ -99,6 +140,24 @@ export const Success = ({
         >
           Update Captions
         </button>
+        {!downloadLink && (
+          <button
+            className="rounded-full bg-blue-500 px-4 py-2 text-white"
+            onClick={() => handleDownloadTrainingSet(trainingSet.id)}
+          >
+            Export Training Set
+          </button>
+        )}
+        {downloadLink && (
+          <a
+            href={downloadLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-block rounded-full bg-blue-500 px-4 py-2 text-white"
+          >
+            Download Training Set
+          </a>
+        )}
       </div>
     </div>
   )

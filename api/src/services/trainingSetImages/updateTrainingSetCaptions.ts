@@ -5,22 +5,18 @@ import { logger } from 'src/lib/logger'
 import { generateCaptionForImage } from 'src/services/images/generateCaptionForImage'
 import { trainingSet as getTrainingSet } from 'src/services/trainingSets/trainingSets'
 
-export const updateTrainingSetCaptions = async ({
-  trainingSetId,
-}: {
-  trainingSetId: number
-}) => {
+export const updateTrainingSetCaptions = async ({ id }: { id: number }) => {
   const trainingSet = await db.trainingSet.findUnique({
-    where: { id: trainingSetId },
+    where: { id },
   })
 
   if (!trainingSet) {
-    logger.error(`Training set not found: ${trainingSetId}`)
+    logger.error(`Training set not found: ${id}`)
     throw new ValidationError('Training set not found')
   }
 
   const trainingSetImages = await db.trainingSetImage.findMany({
-    where: { trainingSetId },
+    where: { trainingSetId: id },
   })
 
   for (const trainingSetImage of trainingSetImages) {
@@ -31,7 +27,7 @@ export const updateTrainingSetCaptions = async ({
     })
   }
 
-  const updatedTrainingSet = await getTrainingSet({ id: trainingSetId })
+  const updatedTrainingSet = await getTrainingSet({ id })
 
   return updatedTrainingSet
 }

@@ -1,5 +1,5 @@
 import { db } from 'src/lib/db'
-export const TRIGGER = 'fktry-rcrd'
+const TRIGGER = 'fktry-rcrd'
 
 export const generateCaptionForImage = async (imageId: number) => {
   const image = await db.image.findUnique({

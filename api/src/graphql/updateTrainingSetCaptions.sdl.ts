@@ -1,5 +1,5 @@
 export const schema = gql`
   type Mutation {
-    updateTrainingSetCaptions(trainingSetId: Int!): TrainingSet! @requireAuth
+    updateTrainingSetCaptions(id: Int!): TrainingSet! @requireAuth
   }
 `

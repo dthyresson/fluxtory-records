@@ -107,6 +107,7 @@ export interface Mutation {
   deleteStyle: PStyle
   deleteTrainingSet: PTrainingSet
   deleteTrainingSetImage: PTrainingSetImage
+  downloadTrainingSet: TrainingSetDownload
   updateArtist: PArtist
   updateGenre: PGenre
   updateImage: PImage
@@ -145,6 +146,12 @@ export interface Redwood {
   currentUser?: JSON | null
   prismaVersion?: string | null
   version?: string | null
+}
+
+export interface TrainingSetDownload {
+  __typename?: 'TrainingSetDownload'
+  trainingSet: PTrainingSet
+  url: string
 }
 
 export interface UpdateArtistInput {
