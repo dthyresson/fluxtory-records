@@ -53,6 +53,26 @@ const DOWNLOAD_TRAINING_SET = gql`
   }
 `
 
+const REMOVE_IMAGE_FROM_TRAINING_SET = gql`
+  mutation RemoveImageFromTrainingSet(
+    $input: RemoveImageFromTrainingSetInput!
+  ) {
+    removeImageFromTrainingSet(input: $input) {
+      id
+      version
+      description
+      imagesCount
+      trainingSetImages {
+        image {
+          id
+          uri
+        }
+        caption
+      }
+    }
+  }
+`
+
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
@@ -65,7 +85,6 @@ export const Failure = ({
 
 export const Success = ({
   trainingSet,
-  queryResult,
 }: CellSuccessProps<FindTrainingSetQuery, FindTrainingSetQueryVariables>) => {
   const [downloadLink, setDownloadLink] = useState<string | null>(null)
 
@@ -74,9 +93,6 @@ export const Success = ({
     {
       onCompleted: () => {
         toast.success('Captions updated successfully')
-        queryResult.refetch().then(() => {
-          console.log('Query refetched')
-        })
       },
       refetchQueries: [{ query: QUERY, variables: { id: trainingSet.id } }],
     }
@@ -90,6 +106,19 @@ export const Success = ({
       toast.error(`Failed to download training set: ${error.message}`)
     },
   })
+
+  const [removeImageFromTrainingSet] = useMutation(
+    REMOVE_IMAGE_FROM_TRAINING_SET,
+    {
+      onCompleted: () => {
+        toast.success('Image removed from training set')
+      },
+      onError: (error) => {
+        toast.error(`Failed to remove image: ${error.message}`)
+      },
+      refetchQueries: [{ query: QUERY, variables: { id: trainingSet.id } }],
+    }
+  )
 
   const handleUpdateCaptions = () => {
     const loadingToast = toast.loading('Updating captions...')
@@ -119,6 +148,22 @@ export const Success = ({
       },
       onError: () => {
         toast.dismiss(loadingToast)
+        toast.error('Failed to export training set')
+      },
+    })
+  }
+
+  const handleRemoveImage = ({ imageId }: { imageId: number }) => {
+    const loadingToast = toast.loading('Removing image...')
+    removeImageFromTrainingSet({
+      variables: { input: { trainingSetId: trainingSet.id, imageId } },
+      onCompleted: () => {
+        toast.dismiss(loadingToast)
+        toast.success('Image removed from training set')
+      },
+      onError: (error) => {
+        toast.dismiss(loadingToast)
+        toast.error(`Failed to remove image: ${error.message}`)
       },
     })
   }
@@ -133,6 +178,9 @@ export const Success = ({
           <li key={t.image.id}>
             <img src={t.image.uri} alt={t.image.uri} />
             <p>{t.caption}</p>
+            <button onClick={() => handleRemoveImage({ imageId: t.image.id })}>
+              Remove
+            </button>
           </li>
         ))}
       </ul>

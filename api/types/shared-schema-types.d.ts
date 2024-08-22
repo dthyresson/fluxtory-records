@@ -129,6 +129,7 @@ export interface Mutation {
   deleteTrainingSet: TrainingSet
   deleteTrainingSetImage: TrainingSetImage
   downloadTrainingSet: TrainingSetDownload
+  removeImageFromTrainingSet: TrainingSet
   updateArtist: Artist
   updateGenre: Genre
   updateImage: Image
@@ -193,6 +194,12 @@ export interface Release {
   updatedAt: DateTime
   uri?: string | null
   year: number
+}
+
+export interface RemoveImageFromTrainingSetInput {
+  __typename?: 'RemoveImageFromTrainingSetInput'
+  imageId: number
+  trainingSetId: number
 }
 
 export interface Style {
