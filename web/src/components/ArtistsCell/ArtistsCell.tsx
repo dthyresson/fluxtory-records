@@ -37,7 +37,7 @@ export const Success = ({ artists }: CellSuccessProps<ArtistsQuery>) => {
         return (
           <li key={artist.id} className="flex">
             <Link
-              className="items-cente flex-grow text-lg hover:font-bold"
+              className="flex-grow items-center text-lg hover:font-bold"
               to={routes.artist({ id: artist.id })}
             >
               <div className="flex h-full w-full flex-col items-center justify-between overflow-hidden rounded-lg p-4 shadow-md">
