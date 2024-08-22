@@ -6,6 +6,7 @@ export const schema = gql`
     version: Int!
     description: String
     images: [Image]!
+    imagesCount: Int!
   }
 
   type Query {

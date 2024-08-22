@@ -194,6 +194,7 @@ export interface TrainingSet {
   description?: string | null
   id: number
   images: Array<Image>
+  imagesCount: number
   updatedAt: DateTime
   version: number
 }

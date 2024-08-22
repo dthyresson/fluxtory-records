@@ -9,45 +9,65 @@ import type {
 import { db } from 'src/lib/db'
 
 export const trainingSets: TrainingSetsResolver = async () => {
-  return await db.trainingSet.findMany({
-    orderBy: { id: 'asc' },
+  const sets = await db.trainingSet.findMany({
+    orderBy: { version: 'desc' },
     include: {
       images: true,
+      _count: {
+        select: { images: true },
+      },
     },
   })
+
+  return sets.map((s) => ({ ...s, imagesCount: s._count.images }))
 }
 
 export const trainingSet: TrainingSetResolver = async ({ id }) => {
-  return await db.trainingSet.findUnique({
+  const set = await db.trainingSet.findUnique({
     where: { id },
     include: {
       images: true,
+      _count: {
+        select: { images: true },
+      },
     },
   })
+
+  return { ...set, imagesCount: set?._count.images }
 }
 
 export const createTrainingSet: CreateTrainingSetResolver = async ({
   input,
 }) => {
-  return await db.trainingSet.create({
+  const set = await db.trainingSet.create({
     data: input,
     include: {
       images: true,
+      _count: {
+        select: { images: true },
+      },
     },
   })
+
+  return { ...set, imagesCount: set._count.images }
 }
 
 export const updateTrainingSet: UpdateTrainingSetResolver = async ({
   id,
   input,
 }) => {
-  return await db.trainingSet.update({
+  const set = await db.trainingSet.update({
     data: input,
     where: { id },
     include: {
       images: true,
+      _count: {
+        select: { images: true },
+      },
     },
   })
+
+  return { ...set, imagesCount: set._count.images }
 }
 
 export const deleteTrainingSet: DeleteTrainingSetResolver = async ({ id }) => {
