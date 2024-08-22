@@ -1,9 +1,16 @@
+export interface AddImageToTrainingSetInput {
+  __typename?: 'AddImageToTrainingSetInput'
+  imageId: number
+  newVersion?: boolean | null
+  trainingSetId?: number | null
+}
+
 export interface Artist {
   __typename?: 'Artist'
   createdAt: DateTime
   id: number
   name: string
-  release: Array<Release>
+  releases: Array<Release>
   updatedAt: DateTime
 }
 
@@ -57,6 +64,13 @@ export interface CreateStyleInput {
   name: string
 }
 
+export interface CreateTrainingSetImageInput {
+  __typename?: 'CreateTrainingSetImageInput'
+  caption?: string | null
+  imageId: number
+  trainingSetId: number
+}
+
 export interface CreateTrainingSetInput {
   __typename?: 'CreateTrainingSetInput'
   description?: string | null
@@ -97,6 +111,7 @@ export interface Label {
 
 export interface Mutation {
   __typename?: 'Mutation'
+  addImageToTrainingSet: TrainingSet
   createArtist: Artist
   createGenre: Genre
   createImage: Image
@@ -104,6 +119,7 @@ export interface Mutation {
   createRelease: Release
   createStyle: Style
   createTrainingSet: TrainingSet
+  createTrainingSetImage: TrainingSetImage
   deleteArtist: Artist
   deleteGenre: Genre
   deleteImage: Image
@@ -111,6 +127,9 @@ export interface Mutation {
   deleteRelease: Release
   deleteStyle: Style
   deleteTrainingSet: TrainingSet
+  deleteTrainingSetImage: TrainingSetImage
+  downloadTrainingSet: TrainingSetDownload
+  removeImageFromTrainingSet: TrainingSet
   updateArtist: Artist
   updateGenre: Genre
   updateImage: Image
@@ -118,12 +137,15 @@ export interface Mutation {
   updateRelease: Release
   updateStyle: Style
   updateTrainingSet: TrainingSet
+  updateTrainingSetCaptions: TrainingSet
+  updateTrainingSetImage: TrainingSetImage
 }
 
 export interface Query {
   __typename?: 'Query'
   artist?: Artist | null
   artists: Artist[]
+  currentTrainingSet?: TrainingSet | null
   genre?: Genre | null
   genres: Genre[]
   image?: Image | null
@@ -136,6 +158,8 @@ export interface Query {
   style?: Style | null
   styles: Style[]
   trainingSet?: TrainingSet | null
+  trainingSetImage?: TrainingSetImage | null
+  trainingSetImages: TrainingSetImage[]
   trainingSets: TrainingSet[]
 }
 
@@ -172,6 +196,12 @@ export interface Release {
   year: number
 }
 
+export interface RemoveImageFromTrainingSetInput {
+  __typename?: 'RemoveImageFromTrainingSetInput'
+  imageId: number
+  trainingSetId: number
+}
+
 export interface Style {
   __typename?: 'Style'
   id: number
@@ -184,9 +214,28 @@ export interface TrainingSet {
   createdAt: DateTime
   description?: string | null
   id: number
-  releases: Array<Release>
+  imagesCount: number
+  trainingSetImages: Array<TrainingSetImage>
   updatedAt: DateTime
   version: number
+}
+
+export interface TrainingSetDownload {
+  __typename?: 'TrainingSetDownload'
+  trainingSet: TrainingSet
+  url: string
+}
+
+export interface TrainingSetImage {
+  __typename?: 'TrainingSetImage'
+  caption?: string | null
+  createdAt: DateTime
+  id: number
+  image: Image
+  imageId: number
+  trainingSet: TrainingSet
+  trainingSetId: number
+  updatedAt: DateTime
 }
 
 export interface UpdateArtistInput {
@@ -237,6 +286,13 @@ export interface UpdateReleaseInput {
 export interface UpdateStyleInput {
   __typename?: 'UpdateStyleInput'
   name?: string | null
+}
+
+export interface UpdateTrainingSetImageInput {
+  __typename?: 'UpdateTrainingSetImageInput'
+  caption?: string | null
+  imageId?: number | null
+  trainingSetId?: number | null
 }
 
 export interface UpdateTrainingSetInput {

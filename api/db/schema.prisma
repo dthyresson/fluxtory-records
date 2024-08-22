@@ -29,14 +29,14 @@ model Artist {
   updatedAt DateTime  @updatedAt
   discogsId Int?
   name      String?   @unique
-  release   Release[]
+  releases  Release[]
 }
 
 model Release {
-  id            Int          @id @default(autoincrement())
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  discogsId     Int          @unique
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  discogsId     Int      @unique
   status        String?
   format        String?
   catalogNumber String?
@@ -47,30 +47,29 @@ model Release {
   year          Int
   notes         String?
   labelId       Int?
-  label         Label?       @relation(fields: [labelId], references: [id])
+  label         Label?   @relation(fields: [labelId], references: [id])
   artistId      Int?
-  artist        Artist?      @relation(fields: [artistId], references: [id])
+  artist        Artist?  @relation(fields: [artistId], references: [id])
   images        Image[]
-  genre         Genre?       @relation(fields: [genreId], references: [id])
+  genre         Genre?   @relation(fields: [genreId], references: [id])
   genreId       Int?
-  style         Style?       @relation(fields: [styleId], references: [id])
+  style         Style?   @relation(fields: [styleId], references: [id])
   styleId       Int?
-  trainingSet   TrainingSet? @relation(fields: [trainingSetId], references: [id])
-  trainingSetId Int?
 }
 
 model Image {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  type        String
-  uri         String   @unique
-  resourceUrl String
-  uri150      String
-  width       Int
-  height      Int
-  releaseId   Int
-  release     Release  @relation(fields: [releaseId], references: [id])
+  id                Int                @id @default(autoincrement())
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  type              String
+  uri               String             @unique
+  resourceUrl       String
+  uri150            String
+  width             Int
+  height            Int
+  releaseId         Int
+  release           Release            @relation(fields: [releaseId], references: [id])
+  trainingSetImages TrainingSetImage[]
 }
 
 model Genre {
@@ -86,10 +85,23 @@ model Style {
 }
 
 model TrainingSet {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  version     Int       @unique @default(1)
-  description String?
-  releases    Release[]
+  id                Int                @id @default(autoincrement())
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  version           Int                @unique @default(1)
+  description       String?
+  trainingSetImages TrainingSetImage[]
+}
+
+model TrainingSetImage {
+  id            Int         @id @default(autoincrement())
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  caption       String?
+  trainingSetId Int
+  trainingSet   TrainingSet @relation(fields: [trainingSetId], references: [id])
+  imageId       Int
+  image         Image       @relation(fields: [imageId], references: [id])
+
+  @@unique([trainingSetId, imageId])
 }

@@ -4,12 +4,12 @@ export const schema = gql`
     createdAt: DateTime!
     updatedAt: DateTime!
     name: String!
-    release: [Release]!
+    releases: [Release]!
   }
 
   type Query {
-    artists: [Artist!]! @blocked
-    artist(id: Int!): Artist @blocked
+    artists: [Artist!]! @skipAuth
+    artist(id: Int!): Artist @skipAuth
   }
 
   input CreateArtistInput {

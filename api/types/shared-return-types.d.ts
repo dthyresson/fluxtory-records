@@ -6,6 +6,7 @@ import type {
   Release as PRelease,
   Style as PStyle,
   TrainingSet as PTrainingSet,
+  TrainingSetImage as PTrainingSetImage,
 } from '@prisma/client'
 
 // You may very reasonably ask yourself, 'what is this file?' and why do I need it.
@@ -17,6 +18,13 @@ import type {
 
 // This gets particularly valuable when you want to return a union type, an interface,
 // or a model where the prisma model is nested pretty deeply (GraphQL connections, for example.)
+export interface AddImageToTrainingSetInput {
+  __typename?: 'AddImageToTrainingSetInput'
+  imageId: number
+  newVersion?: boolean | null
+  trainingSetId?: number | null
+}
+
 export interface CreateArtistInput {
   __typename?: 'CreateArtistInput'
   name: string
@@ -67,6 +75,13 @@ export interface CreateStyleInput {
   name: string
 }
 
+export interface CreateTrainingSetImageInput {
+  __typename?: 'CreateTrainingSetImageInput'
+  caption?: string | null
+  imageId: number
+  trainingSetId: number
+}
+
 export interface CreateTrainingSetInput {
   __typename?: 'CreateTrainingSetInput'
   description?: string | null
@@ -75,6 +90,7 @@ export interface CreateTrainingSetInput {
 
 export interface Mutation {
   __typename?: 'Mutation'
+  addImageToTrainingSet: PTrainingSet
   createArtist: PArtist
   createGenre: PGenre
   createImage: PImage
@@ -82,6 +98,7 @@ export interface Mutation {
   createRelease: PRelease
   createStyle: PStyle
   createTrainingSet: PTrainingSet
+  createTrainingSetImage: PTrainingSetImage
   deleteArtist: PArtist
   deleteGenre: PGenre
   deleteImage: PImage
@@ -89,6 +106,9 @@ export interface Mutation {
   deleteRelease: PRelease
   deleteStyle: PStyle
   deleteTrainingSet: PTrainingSet
+  deleteTrainingSetImage: PTrainingSetImage
+  downloadTrainingSet: TrainingSetDownload
+  removeImageFromTrainingSet: PTrainingSet
   updateArtist: PArtist
   updateGenre: PGenre
   updateImage: PImage
@@ -96,12 +116,15 @@ export interface Mutation {
   updateRelease: PRelease
   updateStyle: PStyle
   updateTrainingSet: PTrainingSet
+  updateTrainingSetCaptions: PTrainingSet
+  updateTrainingSetImage: PTrainingSetImage
 }
 
 export interface Query {
   __typename?: 'Query'
   artist?: PArtist | null
   artists: PArtist[]
+  currentTrainingSet?: PTrainingSet | null
   genre?: PGenre | null
   genres: PGenre[]
   image?: PImage | null
@@ -114,6 +137,8 @@ export interface Query {
   style?: PStyle | null
   styles: PStyle[]
   trainingSet?: PTrainingSet | null
+  trainingSetImage?: PTrainingSetImage | null
+  trainingSetImages: PTrainingSetImage[]
   trainingSets: PTrainingSet[]
 }
 
@@ -122,6 +147,18 @@ export interface Redwood {
   currentUser?: JSON | null
   prismaVersion?: string | null
   version?: string | null
+}
+
+export interface RemoveImageFromTrainingSetInput {
+  __typename?: 'RemoveImageFromTrainingSetInput'
+  imageId: number
+  trainingSetId: number
+}
+
+export interface TrainingSetDownload {
+  __typename?: 'TrainingSetDownload'
+  trainingSet: PTrainingSet
+  url: string
 }
 
 export interface UpdateArtistInput {
@@ -174,6 +211,13 @@ export interface UpdateStyleInput {
   name?: string | null
 }
 
+export interface UpdateTrainingSetImageInput {
+  __typename?: 'UpdateTrainingSetImageInput'
+  caption?: string | null
+  imageId?: number | null
+  trainingSetId?: number | null
+}
+
 export interface UpdateTrainingSetInput {
   __typename?: 'UpdateTrainingSetInput'
   description?: string | null
@@ -188,3 +232,4 @@ export type Label = PLabel
 export type Release = PRelease
 export type Style = PStyle
 export type TrainingSet = PTrainingSet
+export type TrainingSetImage = PTrainingSetImage

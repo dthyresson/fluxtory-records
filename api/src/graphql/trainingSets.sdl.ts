@@ -5,12 +5,13 @@ export const schema = gql`
     updatedAt: DateTime!
     version: Int!
     description: String
-    releases: [Release]!
+    trainingSetImages: [TrainingSetImage]!
+    imagesCount: Int!
   }
 
   type Query {
-    trainingSets: [TrainingSet!]! @blocked
-    trainingSet(id: Int!): TrainingSet @blocked
+    trainingSets: [TrainingSet!]! @requireAuth
+    trainingSet(id: Int!): TrainingSet @requireAuth
   }
 
   input CreateTrainingSetInput {
@@ -24,9 +25,9 @@ export const schema = gql`
   }
 
   type Mutation {
-    createTrainingSet(input: CreateTrainingSetInput!): TrainingSet! @blocked
+    createTrainingSet(input: CreateTrainingSetInput!): TrainingSet! @requireAuth
     updateTrainingSet(id: Int!, input: UpdateTrainingSetInput!): TrainingSet!
-      @blocked
-    deleteTrainingSet(id: Int!): TrainingSet! @blocked
+      @requireAuth
+    deleteTrainingSet(id: Int!): TrainingSet! @requireAuth
   }
 `
