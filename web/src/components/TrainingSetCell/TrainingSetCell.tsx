@@ -175,10 +175,20 @@ export const Success = ({
       <p>Images: {trainingSet.imagesCount}</p>
       <ul className="grid grid-cols-3 gap-4">
         {trainingSet.trainingSetImages.map((t) => (
-          <li key={t.image.id}>
-            <img src={t.image.uri} alt={t.image.uri} />
+          <li
+            key={t.image.id}
+            className="flex h-full flex-col items-center space-y-2"
+          >
+            <img
+              src={t.image.uri}
+              alt={t.image.uri}
+              className="w-full flex-grow object-cover"
+            />
             <p>{t.caption}</p>
-            <button onClick={() => handleRemoveImage({ imageId: t.image.id })}>
+            <button
+              className="mt-auto rounded-full bg-red-500 px-4 py-2 text-white"
+              onClick={() => handleRemoveImage({ imageId: t.image.id })}
+            >
               Remove
             </button>
           </li>
