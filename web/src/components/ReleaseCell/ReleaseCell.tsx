@@ -65,6 +65,65 @@ const ADD_IMAGE_TO_TRAINING_SET = gql`
   }
 `
 
+const ImageDisplay = ({
+  image,
+  index,
+  handleImageError,
+  release,
+  imageErrors,
+}) => (
+  <div className="bg-base-100 flex h-full flex-col rounded-lg p-4 shadow-xl">
+    <figure className="aspect-auto flex-grow">
+      {!imageErrors[index] ? (
+        <img
+          src={image.uri}
+          alt={`${release.title} - ${image.type}`}
+          className="object-fit w-full rounded-lg"
+          loading="lazy"
+          onError={() => handleImageError(index)}
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center rounded-lg bg-gray-200">
+          <span className="text-gray-400">No image available</span>
+        </div>
+      )}
+    </figure>
+  </div>
+)
+
+const ActionButtons = ({
+  imageId,
+  currentTrainingSet,
+  handleAddToTrainingSet,
+}) => (
+  <div className="mt-auto flex justify-center space-x-2">
+    {currentTrainingSet && (
+      <button
+        className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+        onClick={() =>
+          handleAddToTrainingSet({
+            imageId,
+            trainingSetId: currentTrainingSet.id,
+          })
+        }
+      >
+        Add to Current Set ({currentTrainingSet.version})
+      </button>
+    )}
+    <button
+      className="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+      onClick={() =>
+        handleAddToTrainingSet({
+          imageId,
+          newVersion: true,
+        })
+      }
+    >
+      Add to New Set
+    </button>
+  </div>
+)
+
 export const Success = ({
   release,
   currentTrainingSet,
@@ -124,56 +183,22 @@ export const Success = ({
         <span className="font-semibold">Genre:</span> {release.genre?.name}
       </p>
       <p className="mb-4">{release.notes}</p>
-      <div className="grid grid-cols-1 gap-4  md:grid-cols-2 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
         {release.images.map((image, index) => (
-          <div
-            key={index}
-            className="bg-base-100 flex h-full flex-col rounded-lg p-4 shadow-xl"
-          >
-            <figure className="aspect-auto flex-grow">
-              {!imageErrors[index] ? (
-                <img
-                  src={image.uri}
-                  alt={`${release.title} - ${image.type}`}
-                  className="object-fit w-full rounded-lg"
-                  loading="lazy"
-                  onError={() => handleImageError(index)}
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center rounded-lg bg-gray-200">
-                  <span className="text-gray-400">No image available</span>
-                </div>
-              )}
-            </figure>
-            <div className="flex flex-col p-4">
-              <h2 className="mb-2 text-xl font-semibold">{image.type}</h2>
-              <div className="mt-auto flex justify-end space-x-2">
-                {currentTrainingSet && (
-                  <button
-                    className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-                    onClick={() =>
-                      handleAddToTrainingSet({
-                        imageId: image.id,
-                        trainingSetId: currentTrainingSet.id,
-                      })
-                    }
-                  >
-                    Add to Current Set ({currentTrainingSet.version})
-                  </button>
-                )}
-                <button
-                  className="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
-                  onClick={() =>
-                    handleAddToTrainingSet({
-                      imageId: image.id,
-                      newVersion: true,
-                    })
-                  }
-                >
-                  Add to New Set
-                </button>
-              </div>
-            </div>
+          <div key={index} className="flex flex-col gap-4">
+            <ImageDisplay
+              key={index}
+              image={image}
+              index={index}
+              handleImageError={handleImageError}
+              release={release}
+              imageErrors={imageErrors}
+            />
+            <ActionButtons
+              imageId={image.id}
+              currentTrainingSet={currentTrainingSet}
+              handleAddToTrainingSet={handleAddToTrainingSet}
+            />
           </div>
         ))}
       </div>
