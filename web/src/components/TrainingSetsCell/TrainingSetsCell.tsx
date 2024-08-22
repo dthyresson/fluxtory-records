@@ -20,6 +20,12 @@ export const QUERY: TypedDocumentNode<
       version
       description
       imagesCount
+      trainingSetImages {
+        image {
+          id
+          uri
+        }
+      }
     }
   }
 `
@@ -39,13 +45,23 @@ export const Success = ({
     <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {trainingSets.map((item) => {
         return (
-          <Link key={item.id} to={routes.trainingSet({ id: item.id })}>
-            <li key={item.id} className="flex flex-col rounded-lg border p-4">
+          <li key={item.id} className="flex flex-col rounded-lg border p-4">
+            <Link to={routes.trainingSet({ id: item.id })}>
               <p>Version: {item.version}</p>
               <p>Description: {item.description}</p>
               <p>Images: {item.imagesCount}</p>
-            </li>
-          </Link>
+            </Link>
+            <div className="mt-2 flex w-full flex-row gap-2 overflow-x-auto">
+              {item.trainingSetImages.map((t) => (
+                <img
+                  key={t.image.id}
+                  src={t.image.uri}
+                  alt="Training set"
+                  className="object-fit  h-16 flex-shrink-0"
+                />
+              ))}
+            </div>
+          </li>
         )
       })}
     </ul>

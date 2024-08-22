@@ -12,7 +12,11 @@ export const trainingSets: TrainingSetsResolver = async () => {
   const sets = await db.trainingSet.findMany({
     orderBy: { version: 'desc' },
     include: {
-      trainingSetImages: true,
+      trainingSetImages: {
+        include: {
+          image: true,
+        },
+      },
       _count: {
         select: {
           trainingSetImages: true,
