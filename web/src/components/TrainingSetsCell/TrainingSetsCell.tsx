@@ -3,6 +3,7 @@ import type {
   TrainingSetsQueryVariables,
 } from 'types/graphql'
 
+import { Link, routes } from '@redwoodjs/router'
 import type {
   CellSuccessProps,
   CellFailureProps,
@@ -38,11 +39,13 @@ export const Success = ({
     <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {trainingSets.map((item) => {
         return (
-          <li key={item.id} className="flex flex-col rounded-lg border p-4">
-            <p>Version: {item.version}</p>
-            <p>Description: {item.description}</p>
-            <p>Images: {item.imagesCount}</p>
-          </li>
+          <Link key={item.id} to={routes.trainingSet({ id: item.id })}>
+            <li key={item.id} className="flex flex-col rounded-lg border p-4">
+              <p>Version: {item.version}</p>
+              <p>Description: {item.description}</p>
+              <p>Images: {item.imagesCount}</p>
+            </li>
+          </Link>
         )
       })}
     </ul>
