@@ -24,7 +24,7 @@ export const downloadTrainingSet = async ({ id }: { id: number }) => {
   const outputPath = path.join(
     getPaths().web.base,
     'public',
-    `training_set_v${t.version}_${Math.floor(Date.now() / 1000)}.zip`
+    `training_set_v${t.version}_${new Date().getTime()}.zip`
   )
   const output = fs.createWriteStream(outputPath)
   const archive = archiver('zip', {
@@ -68,7 +68,8 @@ export const downloadTrainingSet = async ({ id }: { id: number }) => {
 
   logger.debug('Training set downloaded')
 
-  const url = `file://${outputPath}`
+  const filename = path.basename(outputPath)
+  const url = `http://localhost:8910/${filename}`
 
   return { url, trainingSet: t }
 }

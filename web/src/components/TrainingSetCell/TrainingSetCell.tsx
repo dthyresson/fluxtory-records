@@ -68,6 +68,7 @@ export const Success = ({
   queryResult,
 }: CellSuccessProps<FindTrainingSetQuery, FindTrainingSetQueryVariables>) => {
   const [downloadLink, setDownloadLink] = useState<string | null>(null)
+
   const [updateTrainingSetCaptions] = useMutation(
     UPDATE_TRAINING_SET_CAPTIONS,
     {
@@ -102,17 +103,15 @@ export const Success = ({
     })
   }
 
-  const handleDownloadTrainingSet = (id: number) => {
-    const loadingToast = toast.loading('Preparing download...')
+  const handleExportTrainingSet = (id: number) => {
+    const loadingToast = toast.loading('Preparing export ...')
     downloadTrainingSet({
       variables: { id },
       onCompleted: (data) => {
         toast.dismiss(loadingToast)
         setDownloadLink(data.downloadTrainingSet.url)
 
-        toast.success(
-          `Training set download started ${data.downloadTrainingSet.url}`
-        )
+        toast.success(`Training set exported!`)
       },
       onError: () => {
         toast.dismiss(loadingToast)
@@ -133,7 +132,7 @@ export const Success = ({
           </li>
         ))}
       </ul>
-      <div className="my-4 flex justify-center">
+      <div className="my-4 flex justify-center gap-4">
         <button
           className="rounded-full bg-blue-500 px-4 py-2 text-white"
           onClick={() => handleUpdateCaptions()}
@@ -142,18 +141,17 @@ export const Success = ({
         </button>
         {!downloadLink && (
           <button
-            className="rounded-full bg-blue-500 px-4 py-2 text-white"
-            onClick={() => handleDownloadTrainingSet(trainingSet.id)}
+            className="rounded-full bg-green-500 px-4 py-2 text-white"
+            onClick={() => handleExportTrainingSet(trainingSet.id)}
           >
             Export Training Set
           </button>
         )}
         {downloadLink && (
           <a
+            className="rounded-full bg-purple-500 px-4 py-2 text-white"
             href={downloadLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-block rounded-full bg-blue-500 px-4 py-2 text-white"
+            download={`training_set_v${trainingSet.version}.zip`}
           >
             Download Training Set
           </a>
