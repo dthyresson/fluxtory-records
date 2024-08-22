@@ -12,28 +12,40 @@ export const trainingSets: TrainingSetsResolver = async () => {
   const sets = await db.trainingSet.findMany({
     orderBy: { version: 'desc' },
     include: {
-      images: true,
+      trainingSetImages: true,
       _count: {
-        select: { images: true },
+        select: {
+          trainingSetImages: true,
+        },
       },
     },
   })
-
-  return sets.map((s) => ({ ...s, imagesCount: s._count.images }))
+  return sets.map((set) => ({
+    ...set,
+    imagesCount: set._count.trainingSetImages,
+  }))
 }
 
 export const trainingSet: TrainingSetResolver = async ({ id }) => {
   const set = await db.trainingSet.findUnique({
     where: { id },
     include: {
-      images: true,
+      trainingSetImages: {
+        include: {
+          image: true,
+        },
+      },
       _count: {
-        select: { images: true },
+        select: {
+          trainingSetImages: true,
+        },
       },
     },
   })
-
-  return { ...set, imagesCount: set?._count.images }
+  return {
+    ...set,
+    imagesCount: set?._count.trainingSetImages,
+  }
 }
 
 export const createTrainingSet: CreateTrainingSetResolver = async ({
@@ -42,32 +54,31 @@ export const createTrainingSet: CreateTrainingSetResolver = async ({
   const set = await db.trainingSet.create({
     data: input,
     include: {
-      images: true,
+      trainingSetImages: true,
       _count: {
-        select: { images: true },
+        select: {
+          trainingSetImages: true,
+        },
       },
     },
   })
-
-  return { ...set, imagesCount: set._count.images }
+  return {
+    ...set,
+    imagesCount: set?._count.trainingSetImages,
+  }
 }
 
 export const updateTrainingSet: UpdateTrainingSetResolver = async ({
   id,
   input,
 }) => {
-  const set = await db.trainingSet.update({
+  return await db.trainingSet.update({
     data: input,
     where: { id },
     include: {
-      images: true,
-      _count: {
-        select: { images: true },
-      },
+      trainingSetImages: true,
     },
   })
-
-  return { ...set, imagesCount: set._count.images }
 }
 
 export const deleteTrainingSet: DeleteTrainingSetResolver = async ({ id }) => {

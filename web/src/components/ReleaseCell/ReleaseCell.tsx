@@ -101,7 +101,7 @@ export const Success = ({
         `Image added to training set version ${result.data.addImageToTrainingSet.version}`
       )
     } catch (error) {
-      toast.error('Failed to add image to training set')
+      toast.error(error.message)
     }
   }
 

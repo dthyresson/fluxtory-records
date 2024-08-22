@@ -58,18 +58,18 @@ model Release {
 }
 
 model Image {
-  id           Int           @id @default(autoincrement())
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  type         String
-  uri          String        @unique
-  resourceUrl  String
-  uri150       String
-  width        Int
-  height       Int
-  releaseId    Int
-  release      Release       @relation(fields: [releaseId], references: [id])
-  trainingSets TrainingSet[]
+  id                Int                @id @default(autoincrement())
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  type              String
+  uri               String             @unique
+  resourceUrl       String
+  uri150            String
+  width             Int
+  height            Int
+  releaseId         Int
+  release           Release            @relation(fields: [releaseId], references: [id])
+  trainingSetImages TrainingSetImage[]
 }
 
 model Genre {
@@ -85,10 +85,23 @@ model Style {
 }
 
 model TrainingSet {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  version     Int      @unique @default(1)
-  description String?
-  images      Image[]
+  id                Int                @id @default(autoincrement())
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  version           Int                @unique @default(1)
+  description       String?
+  trainingSetImages TrainingSetImage[]
+}
+
+model TrainingSetImage {
+  id            Int         @id @default(autoincrement())
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  caption       String?
+  trainingSetId Int
+  trainingSet   TrainingSet @relation(fields: [trainingSetId], references: [id])
+  imageId       Int
+  image         Image       @relation(fields: [imageId], references: [id])
+
+  @@unique([trainingSetId, imageId])
 }

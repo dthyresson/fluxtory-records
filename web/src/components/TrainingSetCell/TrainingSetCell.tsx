@@ -19,9 +19,12 @@ export const QUERY: TypedDocumentNode<
       version
       description
       imagesCount
-      images {
-        id
-        uri
+      trainingSetImages {
+        image {
+          id
+          uri
+        }
+        caption
       }
     }
   }
@@ -46,9 +49,10 @@ export const Success = ({
       <p>Description: {trainingSet.description}</p>
       <p>Images: {trainingSet.imagesCount}</p>
       <ul className="grid grid-cols-3 gap-4">
-        {trainingSet.images.map((image) => (
-          <li key={image.id}>
-            <img src={image.uri} alt={image.uri} />
+        {trainingSet.trainingSetImages.map((t) => (
+          <li key={t.image.id}>
+            <img src={t.image.uri} alt={t.image.uri} />
+            <p>{t.caption}</p>
           </li>
         ))}
       </ul>

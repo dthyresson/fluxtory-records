@@ -6,6 +6,7 @@ import type {
   Release as PRelease,
   Style as PStyle,
   TrainingSet as PTrainingSet,
+  TrainingSetImage as PTrainingSetImage,
 } from '@prisma/client'
 
 // You may very reasonably ask yourself, 'what is this file?' and why do I need it.
@@ -74,6 +75,13 @@ export interface CreateStyleInput {
   name: string
 }
 
+export interface CreateTrainingSetImageInput {
+  __typename?: 'CreateTrainingSetImageInput'
+  caption?: string | null
+  imageId: number
+  trainingSetId: number
+}
+
 export interface CreateTrainingSetInput {
   __typename?: 'CreateTrainingSetInput'
   description?: string | null
@@ -90,6 +98,7 @@ export interface Mutation {
   createRelease: PRelease
   createStyle: PStyle
   createTrainingSet: PTrainingSet
+  createTrainingSetImage: PTrainingSetImage
   deleteArtist: PArtist
   deleteGenre: PGenre
   deleteImage: PImage
@@ -97,6 +106,7 @@ export interface Mutation {
   deleteRelease: PRelease
   deleteStyle: PStyle
   deleteTrainingSet: PTrainingSet
+  deleteTrainingSetImage: PTrainingSetImage
   updateArtist: PArtist
   updateGenre: PGenre
   updateImage: PImage
@@ -104,6 +114,7 @@ export interface Mutation {
   updateRelease: PRelease
   updateStyle: PStyle
   updateTrainingSet: PTrainingSet
+  updateTrainingSetImage: PTrainingSetImage
 }
 
 export interface Query {
@@ -123,6 +134,8 @@ export interface Query {
   style?: PStyle | null
   styles: PStyle[]
   trainingSet?: PTrainingSet | null
+  trainingSetImage?: PTrainingSetImage | null
+  trainingSetImages: PTrainingSetImage[]
   trainingSets: PTrainingSet[]
 }
 
@@ -183,6 +196,13 @@ export interface UpdateStyleInput {
   name?: string | null
 }
 
+export interface UpdateTrainingSetImageInput {
+  __typename?: 'UpdateTrainingSetImageInput'
+  caption?: string | null
+  imageId?: number | null
+  trainingSetId?: number | null
+}
+
 export interface UpdateTrainingSetInput {
   __typename?: 'UpdateTrainingSetInput'
   description?: string | null
@@ -197,3 +217,4 @@ export type Label = PLabel
 export type Release = PRelease
 export type Style = PStyle
 export type TrainingSet = PTrainingSet
+export type TrainingSetImage = PTrainingSetImage

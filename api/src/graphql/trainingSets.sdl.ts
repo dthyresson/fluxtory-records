@@ -5,7 +5,7 @@ export const schema = gql`
     updatedAt: DateTime!
     version: Int!
     description: String
-    images: [Image]!
+    trainingSetImages: [TrainingSetImage]!
     imagesCount: Int!
   }
 
