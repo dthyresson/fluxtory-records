@@ -41,6 +41,7 @@ export const QUERY: TypedDocumentNode<
     }
     currentTrainingSet {
       id
+      version
     }
   }
 `
@@ -67,6 +68,7 @@ const ADD_IMAGE_TO_TRAINING_SET = gql`
 export const Success = ({
   release,
   currentTrainingSet,
+  queryResult,
 }: CellSuccessProps<FindReleaseQuery, FindReleaseQueryVariables>) => {
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({})
   const [addImageToTrainingSet] = useMutation(ADD_IMAGE_TO_TRAINING_SET)
@@ -94,6 +96,7 @@ export const Success = ({
           },
         },
       })
+      queryResult.refetch()
       toast.success(
         `Image added to training set version ${result.data.addImageToTrainingSet.version}`
       )
@@ -123,13 +126,16 @@ export const Success = ({
       <p className="mb-4">{release.notes}</p>
       <div className="grid grid-cols-1 gap-4  md:grid-cols-2 lg:grid-cols-2">
         {release.images.map((image, index) => (
-          <div key={index} className="bg-base-100 rounded-lg p-4 shadow-xl">
-            <figure className="aspect-square">
+          <div
+            key={index}
+            className="bg-base-100 flex h-full flex-col rounded-lg p-4 shadow-xl"
+          >
+            <figure className="aspect-auto flex-grow">
               {!imageErrors[index] ? (
                 <img
                   src={image.uri}
                   alt={`${release.title} - ${image.type}`}
-                  className="h-full w-full rounded-lg object-cover"
+                  className="object-fit w-full rounded-lg"
                   loading="lazy"
                   onError={() => handleImageError(index)}
                 />
@@ -139,9 +145,9 @@ export const Success = ({
                 </div>
               )}
             </figure>
-            <div className="p-4">
+            <div className="flex flex-col p-4">
               <h2 className="mb-2 text-xl font-semibold">{image.type}</h2>
-              <div className="flex justify-end space-x-2">
+              <div className="mt-auto flex justify-end space-x-2">
                 {currentTrainingSet && (
                   <button
                     className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
@@ -152,7 +158,7 @@ export const Success = ({
                       })
                     }
                   >
-                    Add to Current Set
+                    Add to Current Set ({currentTrainingSet.version})
                   </button>
                 )}
                 <button

@@ -15,6 +15,6 @@ export const schema = gql`
       @blocked
     deleteTrainingSet(id: Int!): TrainingSet! @blocked
     addImageToTrainingSet(input: AddImageToTrainingSetInput!): TrainingSet!
-      @rateLimited(identifier: "addImageToTrainingSet")
+      @skipAuth
   }
 `

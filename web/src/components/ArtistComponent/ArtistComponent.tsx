@@ -22,9 +22,11 @@ const ArtistComponent: React.FC<ArtistProps> = ({ artist }) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="mb-6 text-3xl font-bold">{artist.name}</h1>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid auto-rows-fr grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {artist.releases.map((release) => (
-          <ReleaseOverviewComponent key={release.id} release={release} />
+          <div key={release.id}>
+            <ReleaseOverviewComponent release={release} />
+          </div>
         ))}
       </div>
     </div>

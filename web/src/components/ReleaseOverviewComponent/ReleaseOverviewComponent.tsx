@@ -13,7 +13,14 @@ interface ReleaseProps {
   }
 }
 
-const ReleaseComponent: React.FC<ReleaseProps> = ({ release }) => {
+interface ReleaseOverviewComponentProps {
+  release: ReleaseProps['release']
+  className?: string
+}
+
+const ReleaseOverviewComponent: React.FC<ReleaseOverviewComponentProps> = ({
+  release,
+}) => {
   const [imageError, setImageError] = useState(false)
   const coverImage =
     release.images.find((image) => image.type === 'primary') ||
@@ -24,8 +31,8 @@ const ReleaseComponent: React.FC<ReleaseProps> = ({ release }) => {
   }
 
   return (
-    <Link to={routes.release({ id: release.id })}>
-      <div className="overflow-hidden rounded-lg bg-white shadow-md">
+    <Link to={routes.release({ id: release.id })} className="block h-full">
+      <div className="flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-md">
         {coverImage && !imageError ? (
           <img
             src={coverImage.uri}
@@ -40,7 +47,7 @@ const ReleaseComponent: React.FC<ReleaseProps> = ({ release }) => {
           </div>
         )}
 
-        <div className="p-4">
+        <div className="flex flex-grow flex-col justify-between p-4">
           <h2 className="mb-2 text-xl font-semibold">{release.title}</h2>
           <p className="text-sm text-gray-500">{release.format}</p>
         </div>
@@ -49,4 +56,4 @@ const ReleaseComponent: React.FC<ReleaseProps> = ({ release }) => {
   )
 }
 
-export default ReleaseComponent
+export default ReleaseOverviewComponent
