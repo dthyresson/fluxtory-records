@@ -8,6 +8,8 @@ import type {
   CellFailureProps,
   TypedDocumentNode,
 } from '@redwoodjs/web'
+import { useMutation } from '@redwoodjs/web'
+import { toast } from '@redwoodjs/web/toast'
 
 export const QUERY: TypedDocumentNode<
   FindTrainingSetQuery,
@@ -30,6 +32,14 @@ export const QUERY: TypedDocumentNode<
   }
 `
 
+const UPDATE_TRAINING_SET_CAPTIONS = gql`
+  mutation UpdateTrainingSetCaptions($trainingSetId: Int!) {
+    updateTrainingSetCaptions(trainingSetId: $trainingSetId) {
+      id
+    }
+  }
+`
+
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
@@ -42,7 +52,33 @@ export const Failure = ({
 
 export const Success = ({
   trainingSet,
+  queryResult,
 }: CellSuccessProps<FindTrainingSetQuery, FindTrainingSetQueryVariables>) => {
+  const [updateTrainingSetCaptions] = useMutation(
+    UPDATE_TRAINING_SET_CAPTIONS,
+    {
+      onCompleted: () => {
+        queryResult.refetch()
+        toast.success('Captions updated successfully')
+      },
+    }
+  )
+
+  const handleUpdateCaptions = () => {
+    const loadingToast = toast.loading('Updating captions...')
+    updateTrainingSetCaptions({
+      variables: { trainingSetId: trainingSet.id },
+      onCompleted: () => {
+        toast.dismiss(loadingToast)
+        toast.success('Captions updated successfully')
+      },
+      onError: (error) => {
+        toast.dismiss(loadingToast)
+        toast.error(`Failed to update captions: ${error.message}`)
+      },
+    })
+  }
+
   return (
     <div>
       <h1>Version: {trainingSet.version}</h1>
@@ -56,6 +92,14 @@ export const Success = ({
           </li>
         ))}
       </ul>
+      <div className="my-4 flex justify-center">
+        <button
+          className="rounded-full bg-blue-500 px-4 py-2 text-white"
+          onClick={() => handleUpdateCaptions()}
+        >
+          Update Captions
+        </button>
+      </div>
     </div>
   )
 }

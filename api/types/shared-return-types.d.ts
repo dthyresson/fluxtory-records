@@ -114,6 +114,7 @@ export interface Mutation {
   updateRelease: PRelease
   updateStyle: PStyle
   updateTrainingSet: PTrainingSet
+  updateTrainingSetCaptions: PTrainingSet
   updateTrainingSetImage: PTrainingSetImage
 }
 

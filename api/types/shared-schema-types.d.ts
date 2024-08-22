@@ -135,6 +135,7 @@ export interface Mutation {
   updateRelease: Release
   updateStyle: Style
   updateTrainingSet: TrainingSet
+  updateTrainingSetCaptions: TrainingSet
   updateTrainingSetImage: TrainingSetImage
 }
 
