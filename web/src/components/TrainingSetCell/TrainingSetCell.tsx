@@ -212,7 +212,7 @@ export const Success = ({
         {downloadLink && (
           <a
             className="rounded-full bg-purple-500 px-4 py-2 text-white"
-            href={downloadLink}
+            href={`http://localhost:8910/training_sets/${downloadLink}`}
             download={`training_set_v${trainingSet.version}.zip`}
           >
             Download Training Set

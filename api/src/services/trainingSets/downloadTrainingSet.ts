@@ -20,12 +20,14 @@ export const downloadTrainingSet = async ({ id }: { id: number }) => {
     },
   })
 
-  // Create an in-memory zip file archive using archiver
+  // Create a directory for the training set in the web/public/training_sets directory
   const outputPath = path.join(
     getPaths().web.base,
     'public',
+    'training_sets',
     `training_set_v${t.version}_${new Date().getTime()}.zip`
   )
+
   const output = fs.createWriteStream(outputPath)
   const archive = archiver('zip', {
     zlib: { level: 9 }, // Sets the compression level
@@ -40,13 +42,13 @@ export const downloadTrainingSet = async ({ id }: { id: number }) => {
   })
 
   archive.pipe(output)
+
   // Use Promise.all to wait for all async operations to complete
   await Promise.all(
     t.trainingSetImages.map(async (tsi) => {
       // Fetch image from URI
       const response = await fetch(tsi.image.uri)
       const imageBuffer = await response.arrayBuffer()
-      logger.debug('Image buffer', { imageBuffer })
 
       // Generate unique filenames for image and caption
       const imageName = `${tsi.image.id}_image.${getFileExtension(
@@ -66,10 +68,10 @@ export const downloadTrainingSet = async ({ id }: { id: number }) => {
   // Finalize the archive
   archive.finalize()
 
-  logger.debug('Training set downloaded')
+  logger.debug('Training set archive created', { outputPath })
 
   const filename = path.basename(outputPath)
-  const url = `http://localhost:8910/${filename}`
+  const url = filename
 
   return { url, trainingSet: t }
 }
