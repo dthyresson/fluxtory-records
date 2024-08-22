@@ -73,9 +73,12 @@ export const Success = ({
     UPDATE_TRAINING_SET_CAPTIONS,
     {
       onCompleted: () => {
-        queryResult.refetch()
         toast.success('Captions updated successfully')
+        queryResult.refetch().then(() => {
+          console.log('Query refetched')
+        })
       },
+      refetchQueries: [{ query: QUERY, variables: { id: trainingSet.id } }],
     }
   )
 
@@ -95,6 +98,7 @@ export const Success = ({
       onCompleted: () => {
         toast.dismiss(loadingToast)
         toast.success('Captions updated successfully')
+        console.log('Mutation completed')
       },
       onError: (error) => {
         toast.dismiss(loadingToast)

@@ -13,7 +13,14 @@ export const artists: ArtistsResolver = async () => {
     include: {
       releases: {
         include: {
-          images: true,
+          images: {
+            orderBy: {
+              type: 'asc',
+            },
+          },
+        },
+        orderBy: {
+          title: 'asc',
         },
       },
     },

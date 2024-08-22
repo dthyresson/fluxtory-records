@@ -10,8 +10,8 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     <div>
       <Toaster />
 
-      <nav className="bg-gray-800 p-4">
-        <div className="container mx-auto flex items-center justify-items-start gap-4">
+      <nav className="bg-gray-800 py-4">
+        <div className="container mx-auto flex justify-items-start gap-4">
           <Link
             to={routes.artists()}
             className="text-white hover:text-gray-300"
@@ -28,7 +28,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           </Link>
         </div>
       </nav>
-      <main className="container mx-auto mt-4">{children}</main>
+      <main className="container m-4">{children}</main>
     </div>
   )
 }

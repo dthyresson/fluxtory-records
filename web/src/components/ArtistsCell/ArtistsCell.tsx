@@ -15,6 +15,9 @@ export const QUERY: TypedDocumentNode<
     artists {
       id
       name
+      releases {
+        thumbnail
+      }
     }
   }
 `
@@ -29,15 +32,23 @@ export const Failure = ({ error }: CellFailureProps) => (
 
 export const Success = ({ artists }: CellSuccessProps<ArtistsQuery>) => {
   return (
-    <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
       {artists.map((artist) => {
         return (
-          <li key={artist.id}>
+          <li key={artist.id} className="flex">
             <Link
-              className="text-lg hover:font-bold"
+              className="items-cente flex-grow text-lg hover:font-bold"
               to={routes.artist({ id: artist.id })}
             >
-              {artist.name}
+              <div className="flex h-full w-full flex-col items-center justify-between overflow-hidden rounded-lg p-4 shadow-md">
+                <img
+                  src={artist.releases[0]?.thumbnail}
+                  alt={artist.name}
+                  className="h-24 w-24 object-cover"
+                  loading="lazy"
+                />
+                <div className="mt-2 text-center">{artist.name}</div>
+              </div>
             </Link>
           </li>
         )
